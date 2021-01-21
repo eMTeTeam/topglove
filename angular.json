@@ -39,7 +39,7 @@
               {
                 "input": "src/global.scss"
               },
-              "node_modules/chartist/dist/chartist.min.css"
+              "node_modules/chartist/dist/chartist.css"
             ],
             "scripts": []
           },

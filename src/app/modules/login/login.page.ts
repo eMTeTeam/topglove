@@ -34,6 +34,7 @@ export class LoginPage implements OnInit {
       this.loadingService.show();
 
       this.userService.user = this.loginForm.value.userName;
+      this.userService.IsSuperUser = true;
 
       this.loadingService.hide();
 

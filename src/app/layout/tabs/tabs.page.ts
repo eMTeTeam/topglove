@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-tabs',
@@ -7,6 +9,10 @@ import { Component } from '@angular/core';
 })
 export class TabsPage {
 
-  constructor() {}
+  constructor(public userService: UserService, private router: Router) {
+    if (userService.IsSuperUser) {
+      this.router.navigate(['/tabs/tab3'], { replaceUrl: true });
+    }
+  }
 
 }

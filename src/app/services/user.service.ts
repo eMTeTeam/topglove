@@ -6,6 +6,7 @@ import { Injectable } from '@angular/core';
 export class UserService {
 
   public _user: string = null;
+  public _isSuperUser: boolean = false;
 
   constructor() {
     this.load();
@@ -22,7 +23,7 @@ export class UserService {
   }
 
   isValid = () => {
-    const user = sessionStorage.getItem("userId"); // TODO:: local storage session
+    const user = sessionStorage.getItem("userId");
 
     if (!user) {
       return false;
@@ -38,5 +39,14 @@ export class UserService {
   set user(user: string) {
     sessionStorage.setItem("userId", user);
     this._user = user;
+  }
+
+  get IsSuperUser(): boolean {
+    return this._isSuperUser;
+  }
+
+  set IsSuperUser(flag: boolean) {
+    sessionStorage.setItem("isSuperUser", flag + '');
+    this._isSuperUser = flag;
   }
 }
