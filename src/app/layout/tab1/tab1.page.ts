@@ -2,12 +2,13 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import * as moment from 'moment';
 import { NotificationService } from '../../services/notification.service';
-import { SlotTime } from '../../entities/measure-card';
 import { SlotsService } from '../../services/slots.service';
 import { LoadingService } from '../../services/loading.service';
 import { ApiService } from '../../services/api.service';
-import { Events } from 'src/app/services/events';
 import { Subscription } from 'rxjs';
+import { UserService } from 'src/app/services/user.service';
+import { Factory, FiringOrRework, Size, TypeOfFormers, Defetcs } from 'src/app/entities/topglove.domain.model';
+import { ToastController } from '@ionic/angular';
 
 @Component({
   selector: 'app-tab1',
@@ -16,124 +17,40 @@ import { Subscription } from 'rxjs';
 })
 export class Tab1Page {
 
-  slotEvent: string = 'slot:created';
-  eventSubscription: Subscription;
+  serialNo: number = null;
+  today: string = moment().format("DD-MMM-YYYY");
+  formerType: string = null;
+  size: string = null;
+  factory: string = null;
+  firingOrReWork: string = null;
 
-  today: string = moment().format('DD MMM YYYY');
-  enableSaveTime: boolean = false;
-
-  startDate: Date;
-  endDate: Date;
-  slots: Array<SlotTime> = [];
-
-  customStartPickerOptions: any = {
-    buttons: [{
-      text: 'Done',
-      handler: (time: any) => this.selectStartDay(time)
-    }]
-  };
-
-  customEndPickerOptions: any = {
-    buttons: [{
-      text: 'Done',
-      handler: (time: any) => this.selectEndDay(time)
-    }]
-  };
+  _typeOfFormers: string[] = TypeOfFormers.data;
+  _factory: string[] = Factory.data;
+  _firingOrRework: string[] = FiringOrRework.data;
+  _Size: string[] = Size.data;
+  _defetcs: string[] = Defetcs.data;
 
   constructor(private router: Router,
     private toast: NotificationService,
     private slotsService: SlotsService,
     private loadingService: LoadingService,
     private apiService: ApiService,
-    private events: Events) {
+    public userService: UserService) {
+    this.serialNo = 1;
   }
 
-  ionViewWillEnter() {
-    // this.load();
+  accept = () => {
+    this.toast.success(`Serial no. ${this.serialNo} has been accepted!`);
+    this.serialNo++;
   }
 
-  load = (event: any = null) => {
-
-    if (event) {
-      event.target.complete();
-    }
-
-    this.loadingService.show();
-
-    this.loadTodayTiming();
-    this.loadTodaySlots();
-
-    setTimeout(() => {
-      this.loadingService.hide();
-    }, 1500);
+  reject = (type: string) => {
+    this.toast.error(`Serial no. ${this.serialNo} has been rejected with ${type}!`);
+    this.serialNo++;
   }
 
-  loadTodayTiming = () => {
-    this.startDate = moment().toDate();
-    this.endDate = moment().toDate();
-  }
-
-  loadTodaySlots = () => {
-    var currentDate = moment().format('YYYY-MM-DD')
-    this.apiService.getTodaySlotInfo(currentDate).subscribe((res: any) => {
-      if (res) {
-        this.slots = res.healthMeasures;
-        this.slotsService.id = res.id;
-
-        this.slotsService.count = this.slots.length + 1;
-      } else {
-        this.slotsService.count = 1;
-      }
-    });
-  }
-
-  addTemprature = () => {
-    this.eventSubscription = this.events.subscribe(this.slotEvent, () => {
-      this.load();
-      this.unSubscribe();
-    });
-
-    this.router.navigate(['./measure-now']);
-  }
-
-  unSubscribe = () => {
-    if (this.eventSubscription) {
-      this.eventSubscription.unsubscribe();
-    }
-  }
-
-  toggleSaveTiming = () => {
-    this.enableSaveTime = !this.enableSaveTime;
-  }
-
-  saveTimings = () => {
-    this.toggleSaveTiming();
+  validateForm = () => {
 
   }
 
-  formatTime = (date: Date): string => {
-    return moment(date).format('HH:mm A');
-  }
-
-  selectStartDay = (time: any) => {
-    // const ampm = time.ampm.value;
-    const hour = time.hour.value;
-    const minute = time.minute.value;
-
-    this.startDate = moment()
-      .set('hour', hour)
-      .set('minute', minute)
-      .toDate();
-  }
-
-  selectEndDay = (time: any) => {
-    // const ampm = time.ampm.value;
-    const hour = time.hour.value;
-    const minute = time.minute.value;
-
-    this.endDate = moment()
-      .set('hour', hour)
-      .set('minute', minute)
-      .toDate();
-  }
 }

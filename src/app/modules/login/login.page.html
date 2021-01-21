@@ -2,8 +2,7 @@
 
   <section class="login-container">
     <div class="app-header">
-      <img slot="start" class="logo-large" src="../../../assets/icon/favicon.png" />
-      <ion-label color="primary" class="title">Health Tracker</ion-label>
+      <img slot="start" class="logo-large" src="../../../assets/icon/1920px-Top_Glove_logo.png" />
     </div>
 
     <form (ngSubmit)="doLogin()" class="login-form" [formGroup]="loginForm" padding>
@@ -13,26 +12,11 @@
           <ion-input required type="text" placeholder="username" name="username" formControlName="userName"></ion-input>
         </ion-item>
 
-        <ion-item lines="none" class="border ion-margin-top">
-          <ion-input required type="password" placeholder="password" name="password" formControlName="userPassword">
-          </ion-input>
-        </ion-item>
-
         <div class="ion-padding-top">
           <ion-button expand="block" type="submit" class="ion-no-margin btn-fill">Login</ion-button>
         </div>
 
       </ion-list>
     </form>
-
-    <ion-label color="primary" class="ion-padding-top ion-padding-bottom">
-      Or
-    </ion-label>
-
-    <div class="ion-padding">
-      <ion-button expand="block" fill="outline" class="ion-no-margin btn-outline" (tap)="register()">Register
-        Organization
-      </ion-button>
-    </div>
   </section>
 </ion-content>

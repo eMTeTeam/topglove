@@ -5,7 +5,6 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Tab1Page } from './tab1.page';
 
 import { Tab1PageRoutingModule } from './tab1-routing.module';
-import { MeasureCardComponent } from '../../shared/measure-card/measure-card.component';
 import { AvatarModule } from 'ngx-avatar';
 
 const avatarColors = ["#16438b"];
@@ -21,7 +20,6 @@ const avatarColors = ["#16438b"];
     ReactiveFormsModule
   ],
   declarations: [
-    Tab1Page,
-    MeasureCardComponent]
+    Tab1Page]
 })
 export class Tab1PageModule { }

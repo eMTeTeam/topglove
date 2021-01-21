@@ -6,8 +6,6 @@ import { NotificationService } from '../../services/notification.service';
 import { LoadingService } from '../../services/loading.service';
 import { Plugins } from '@capacitor/core';
 import { UserService } from 'src/app/services/user.service';
-import { User } from 'src/app/entities/user';
-import { Previlages } from 'src/app/entities/previleges';
 
 const { Share, Clipboard } = Plugins;
 
@@ -19,9 +17,6 @@ const navigator = (window.navigator as any);
   styleUrls: ['tab2.page.scss']
 })
 export class Tab2Page {
-
-  previlages: Previlages;
-  user: User;
 
   groups: Array<any> = [];
 

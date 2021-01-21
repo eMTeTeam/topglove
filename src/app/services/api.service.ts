@@ -23,7 +23,7 @@ export class ApiService {
   }
 
   logout = () => {
-    // call api to logout
+    sessionStorage.removeItem("userId");
   }
 
   saveUserDetails = (params: any) => {
