@@ -3,7 +3,7 @@
   <ion-item lines="none">
 
     <ion-grid class="main-grid">
-      <ion-row class="main-row">
+      <!-- <ion-row class="main-row">
 
         <ion-col>
           <ion-item>
@@ -20,19 +20,35 @@
           </ion-item>
         </ion-col>
 
-      </ion-row>
+      </ion-row> -->
 
 
       <ion-row class="main-row">
 
         <ion-col>
-          <ion-item class="main-item">
-            <ion-label position="floating">Serial No. <ion-text color="danger">*</ion-text>
-            </ion-label>
-            <ion-input value="2"></ion-input>
+          <ion-item>
+            <ion-label style="text-align: center;">Serial No: 1</ion-label>
           </ion-item>
         </ion-col>
 
+        <ion-col>
+          <ion-item>
+            <ion-label style="text-align: center;">Date: 20-Feb-2020</ion-label>
+          </ion-item>
+        </ion-col>
+
+        <ion-col>
+          <ion-item>
+            <ion-label style="text-align: center;">User: User1 </ion-label>
+          </ion-item>
+        </ion-col>
+
+       
+
+      </ion-row>
+
+      <ion-row class="main-row">
+       
         <ion-col>
           <ion-item class="main-item">
             <ion-label position="floating">Type Of Formers<ion-text color="danger">*</ion-text>
@@ -61,10 +77,6 @@
           </ion-item>
         </ion-col>
 
-      </ion-row>
-
-      <ion-row class="main-row">
-
         <ion-col>
           <ion-item class="main-item">
             <ion-label position="floating">Factory<ion-text color="danger">*</ion-text>
@@ -90,7 +102,7 @@
           </ion-item>
         </ion-col>
 
-        <ion-col>
+        <!-- <ion-col>
           <ion-item>
             <ion-label position="floating">Defect Type </ion-label>
             <ion-select placeholder="Select One">
@@ -99,19 +111,44 @@
               <ion-select-option value="m">FB</ion-select-option>
             </ion-select>
           </ion-item>
-        </ion-col>
+        </ion-col> -->
 
       </ion-row>
 
       <ion-row class="main-row">
+        <ion-col>
+          <ion-button expand="full" size="large" color="warning">PinHole</ion-button>
+        </ion-col>
+        <ion-col>
+          <ion-button expand="full" size="large" color="warning">SPM</ion-button>
+        </ion-col>
+        <ion-col>
+          <ion-button expand="full" size="large" color="warning">FB</ion-button>
+        </ion-col>
+        <ion-col>
+          <ion-button expand="full" size="large" color="warning">FR</ion-button>
+        </ion-col>
+      </ion-row >
+
+      <ion-row class="main-row">
+        <ion-col>
+          <ion-button expand="full" size="large" color="warning">GC</ion-button>
+        </ion-col>
+        <ion-col>
+          <ion-button expand="full" size="large" color="warning">BS</ion-button>
+        </ion-col>
+        <ion-col>
+          <ion-button expand="full" size="large" color="warning">Crackline</ion-button>
+        </ion-col>
+        <ion-col>
+          <ion-button expand="full" size="large" color="warning">Others</ion-button>
+        </ion-col>
+      </ion-row >
+      
+      <ion-row class="main-row">
 
         <ion-col>
           <ion-button expand="full" size="large" color="primary">Accept</ion-button>
-
-        </ion-col>
-
-        <ion-col>
-          <ion-button expand="full" size="large" color="warning">Reject</ion-button>
         </ion-col>
 
       </ion-row>
