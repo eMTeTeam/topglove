@@ -1,0 +1,35 @@
+.member-card {
+  display: flex;
+  flex-direction: row;
+  padding-left: 8px;
+  padding-right: 8px;
+
+  ion-icon {
+    font-size: 40px;
+    margin-top: 8px;
+  }
+
+  ngx-avatar {
+    padding: 8px 12px;
+  }
+
+  ul {
+    list-style-type: none;
+    display: flex;
+    float: right;
+    margin-bottom: 0;
+
+    li:not(:last-child) {
+      border-right: 0.8px solid #b0b0b0;
+      padding-right: 8px;
+    }
+
+    li:not(:first-child) {
+      padding-left: 8px;
+    }
+  }
+
+  .name-container {
+    width: calc(100% - 20px);
+  }
+}

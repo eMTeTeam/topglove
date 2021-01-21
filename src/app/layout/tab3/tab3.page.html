@@ -1,0 +1,16 @@
+<ion-tabs>
+
+  <ion-tab-bar slot="top">
+    <ion-tab-button tab="group-dashboard" (click)="clickTab($event, 'group-dashboard')">
+      <ion-icon name="pie-chart-outline"></ion-icon>
+      <ion-label>Group Dashboard</ion-label>
+    </ion-tab-button>
+
+    <ion-tab-button tab="generate-report" (click)="clickTab($event, 'generate-report')"
+      *ngIf="previlages?.canCreateTeam">
+      <ion-icon name="reader-outline"></ion-icon>
+      <ion-label>Report</ion-label>
+    </ion-tab-button>
+  </ion-tab-bar>
+
+</ion-tabs>

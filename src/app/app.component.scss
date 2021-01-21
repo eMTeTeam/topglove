@@ -1,0 +1,12 @@
+.full {
+  height: 100%;
+  width: 100%;
+}
+
+.grid {
+  background-color: #f4f5f8;
+
+  @media (min-width: 768px) {
+    padding: 10px;
+  }
+}
