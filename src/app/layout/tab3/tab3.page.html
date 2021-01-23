@@ -1,8 +1,80 @@
 <ion-content>
 
-  <ion-item lines="none">
-    <x-chartist [type]="type" [data]="data" [options]="options"></x-chartist>
-  </ion-item>
+  <ion-grid class="main-grid">
 
+    <ion-row class="main-row">
+      <ion-col size="3">
+        <ion-item lines="none">
+          <ion-label>From</ion-label>
+          <ion-datetime [(ngModel)]="from"></ion-datetime>
+        </ion-item>
+      </ion-col>
+
+      <ion-col size="3">
+        <ion-item lines="none">
+          <ion-label>To</ion-label>
+          <ion-datetime [(ngModel)]="to"></ion-datetime>
+        </ion-item>
+      </ion-col>
+
+      <ion-col size="3">
+        <ion-item lines="none">
+          <ion-label>Factory</ion-label>
+          <ion-select [(ngModel)]="factory">
+            <ion-select-option value="{{fa}}" *ngFor="let fa of _factory">{{fa}}</ion-select-option>
+          </ion-select>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+
+
+    <ion-row class="main-row">
+
+      <ion-col size="6">
+        <ion-card>
+          <ion-item lines="none">
+            <ion-label>Accept</ion-label>
+            <ion-label>900</ion-label>
+          </ion-item>
+        </ion-card>
+
+        <ion-card>
+          <ion-item lines="none">
+            <ion-label>Reject</ion-label>
+            <ion-label>100</ion-label>
+          </ion-item>
+        </ion-card>
+
+        <ion-card>
+          <ion-item lines="none">
+            <ion-label>Total</ion-label>
+            <ion-label>2541</ion-label>
+          </ion-item>
+        </ion-card>
+
+      </ion-col>
+
+      <ion-col size="6">
+        <canvas baseChart [data]="pieChartData" [labels]="pieChartLabels" [chartType]="pieChartType"></canvas>
+      </ion-col>
+    </ion-row>
+
+
+    <ion-row class="main-row">
+      <ion-col size="6" class="chart-bar">
+        <canvas baseChart [datasets]="barChartData" [labels]="barChartLabels" [options]="barChartOptions"
+          [legend]="barChartLegend" [chartType]="barChartType">
+        </canvas>
+      </ion-col>
+
+      <ion-col size="6">
+        <canvas baseChart [datasets]="stackedarChartData" [labels]="stackedBarChartLabels"
+          [options]="stackedBarChartOptions" [legend]="stackedBarChartLegend" [chartType]="stackedBarChartType">
+        </canvas>
+      </ion-col>
+    </ion-row>
+
+
+  </ion-grid>
 
 </ion-content>

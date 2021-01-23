@@ -1,5 +1,5 @@
 export class Users {
-    static data: Array<string> = ['ayu', 'table 2', 'table 3', 'table 4', 'table 5', 'table 6', 'test'];
+    static data: Array<string> = ['ayu', 'table2', 'table3', 'table4', 'table5', 'table6', 'test'];
 }
 
 export class TypeOfFormers {

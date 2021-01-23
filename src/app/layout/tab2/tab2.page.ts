@@ -4,12 +4,9 @@ import { Router } from '@angular/router';
 import { ApiService } from '../../services/api.service';
 import { NotificationService } from '../../services/notification.service';
 import { LoadingService } from '../../services/loading.service';
-import { Plugins } from '@capacitor/core';
 import { UserService } from 'src/app/services/user.service';
-
-const { Share, Clipboard } = Plugins;
-
-const navigator = (window.navigator as any);
+import { TopGlovEntity } from 'src/app/entities/topglove.model';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-tab2',
@@ -18,7 +15,7 @@ const navigator = (window.navigator as any);
 })
 export class Tab2Page {
 
-  groups: Array<any> = [];
+  list: Array<TopGlovEntity> = [];
 
   constructor(public modalController: ModalController,
     private router: Router,
@@ -26,71 +23,45 @@ export class Tab2Page {
     private notify: NotificationService,
     private loadingService: LoadingService,
     private userService: UserService) {
-
-
-    // this.user = this.userService.user;
-    // if (!this.userService.previlages) {
-    //   this.apiService.getMyPrevilige().subscribe(res => {
-    //     this.previlages = res;
-    //     this.userService.previlages = res;
-    //   });
-    // } else {
-    //   this.previlages = this.userService.previlages;
-    // }
   }
 
   ionViewWillEnter() {
-    // this.loadGroups();
+    this.loadDate();
   }
 
-  loadGroups = (event: any = null) => {
-    this.loadingService.show();
-
-    if (event) {
-      event.target.complete();
-    }
-
-    this.apiService.getGroups().subscribe(async res => {
-      this.groups = res;
-      this.loadingService.hide();
-
-
-    },
-      err => {
-        this.notify.error("Please try after sometime!");
-        this.loadingService.hide();
-      });
+  formatDateTime = (date: Date): string => {
+    return moment(date).format('DD-MM-YYYY');
   }
 
-  addGroup = async () => {
-    this.router.navigate(['/new-group']);
+  loadDate = () => {
+    this.list = [
+      {
+        SerialNo: 1,
+        Accept: true,
+        Date: moment().toDate(),
+        DefectType: null,
+        Factory: 'F01',
+        FiringType: null,
+        Former: 'GPT',
+        Size: 'XS',
+        User: 'user 1'
+      },
+      {
+        SerialNo: 1,
+        Accept: false,
+        Date: moment().toDate(),
+        DefectType: 'Pinhole',
+        Factory: 'F01',
+        FiringType: 'Rework',
+        Former: 'GPT',
+        Size: 'XS',
+        User: 'user 1'
+      }
+    ]
   }
 
-  openGroup = (group: any) => {
-    this.router.navigateByUrl('/group-details', { state: { group } });
-  }
-
-  shareGroup = async ($event: any, group: any) => {
-    event.stopImmediatePropagation();
-
-    const url = location.origin + '/#/user-add-edit?groupId=' + group.teamId; //TODO:: take base url
-
-    const options = {
-      title: 'Health Tracker',
-      url: url,
-      dialogTitle: 'Share with team'
-    };
-
-    if (navigator.share) {
-      await Share.share(options);
-    } else {
-      Clipboard.write({
-        string: url,
-        url: location.origin
-      });
-
-      this.notify.success('Sharing url is copied.');
-    }
+  openItem = (item: TopGlovEntity) => {
+    this.router.navigateByUrl('/edit-entity', { state: { item } });
   }
 
 }

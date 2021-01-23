@@ -8,7 +8,6 @@ import { ApiService } from '../../services/api.service';
 import { Subscription } from 'rxjs';
 import { UserService } from 'src/app/services/user.service';
 import { Factory, FiringOrRework, Size, TypeOfFormers, Defetcs } from 'src/app/entities/topglove.domain.model';
-import { ToastController } from '@ionic/angular';
 
 @Component({
   selector: 'app-tab1',

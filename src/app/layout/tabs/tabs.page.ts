@@ -9,10 +9,6 @@ import { UserService } from 'src/app/services/user.service';
 })
 export class TabsPage {
 
-  constructor(public userService: UserService, private router: Router) {
-    if (userService.IsSuperUser) {
-      this.router.navigate(['/tabs/tab3'], { replaceUrl: true });
-    }
-  }
+  constructor(public userService: UserService, private router: Router) { }
 
 }
