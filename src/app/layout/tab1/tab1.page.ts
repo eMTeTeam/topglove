@@ -2,10 +2,8 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import * as moment from 'moment';
 import { NotificationService } from '../../services/notification.service';
-import { SlotsService } from '../../services/slots.service';
 import { LoadingService } from '../../services/loading.service';
 import { ApiService } from '../../services/api.service';
-import { Subscription } from 'rxjs';
 import { UserService } from 'src/app/services/user.service';
 import { Factory, FiringOrRework, Size, TypeOfFormers, Defetcs } from 'src/app/entities/topglove.domain.model';
 
@@ -31,7 +29,6 @@ export class Tab1Page {
 
   constructor(private router: Router,
     private toast: NotificationService,
-    private slotsService: SlotsService,
     private loadingService: LoadingService,
     private apiService: ApiService,
     public userService: UserService) {
@@ -49,7 +46,23 @@ export class Tab1Page {
   }
 
   validateForm = () => {
+  }
 
+  save = () => {
+
+    this.apiService.saveEntity({}).subscribe((result: any) => {
+
+    }, (error: any) => {
+
+    });
+  }
+
+  loadRecentSerialNo = () => {
+    this.apiService.loadRecentSerialNo().subscribe((result: any) => {
+
+    }, (error: any) => {
+
+    });
   }
 
 }

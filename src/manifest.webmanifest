@@ -1,8 +1,8 @@
 {
-  "name": "health-tracker",
-  "short_name": "health-tracker",
-  "theme_color": "#26B899",
-  "background_color": "#fafafa",
+  "name": "top-glove",
+  "short_name": "top-glove",
+  "theme_color": "#16438b",
+  "background_color": "#16438b",
   "display": "standalone",
   "scope": "./",
   "start_url": "./",

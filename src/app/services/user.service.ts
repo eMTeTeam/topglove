@@ -14,7 +14,7 @@ export class UserService {
 
   load = () => {
     if (this.isValid()) {
-      const user = sessionStorage.getItem("userId");
+      const user = localStorage.getItem("userId");
 
       if (user) {
         this._user = user;
@@ -23,7 +23,7 @@ export class UserService {
   }
 
   isValid = () => {
-    const user = sessionStorage.getItem("userId");
+    const user = localStorage.getItem("userId");
 
     if (!user) {
       return false;
@@ -37,7 +37,7 @@ export class UserService {
   }
 
   set user(user: string) {
-    sessionStorage.setItem("userId", user);
+    localStorage.setItem("userId", user);
     this._user = user;
   }
 
@@ -46,7 +46,7 @@ export class UserService {
   }
 
   set IsSuperUser(flag: boolean) {
-    sessionStorage.setItem("isSuperUser", flag + '');
+    localStorage.setItem("isSuperUser", flag + '');
     this._isSuperUser = flag;
   }
 }

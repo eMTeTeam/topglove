@@ -1,22 +1,18 @@
 <ion-content [fullscreen]="true" padding>
 
-  <section class="login-container">
-    <div class="app-header">
-      <img slot="start" class="logo-large" src="../../../assets/icon/1920px-Top_Glove_logo.png" />
-    </div>
+  <div class="login-card">
 
-    <form (ngSubmit)="doLogin()" class="login-form" [formGroup]="loginForm" padding>
-      <ion-list lines="full" class="ion-no-margin ion-no-padding">
+    <img slot="start" class="logo-large" src="../../../assets/icon/favicon.png" />
 
-        <ion-item lines="none" class="border">
-          <ion-input required type="text" placeholder="username" name="username" formControlName="userName"></ion-input>
-        </ion-item>
+    <form (ngSubmit)="doLogin()" [formGroup]="loginForm" padding>
+      <ion-input required type="text" placeholder="username" name="username" formControlName="userName"></ion-input>
 
-        <div class="ion-padding-top">
-          <ion-button expand="block" type="submit" class="ion-no-margin btn-fill">Login</ion-button>
-        </div>
+      <div class="ion-padding-top">
+        <ion-button expand="block" type="submit" class="ion-no-margin btn-fill">Login</ion-button>
+      </div>
 
-      </ion-list>
     </form>
-  </section>
+  </div>
+
+
 </ion-content>

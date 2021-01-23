@@ -5,7 +5,6 @@ import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { environment } from '../environments/environment';
 import { AppUpdatorService } from './services/app-updator.service';
-import { SettingsService } from './services/settings.services';
 
 @Component({
   selector: 'app-root',
@@ -17,8 +16,7 @@ export class AppComponent implements OnInit {
     private platform: Platform,
     private splashScreen: SplashScreen,
     private statusBar: StatusBar,
-    private appUpdatorService: AppUpdatorService,
-    private settingsService: SettingsService
+    private appUpdatorService: AppUpdatorService
   ) {
     this.initializeApp();
   }
@@ -33,8 +31,6 @@ export class AppComponent implements OnInit {
     this.platform.ready().then(() => {
       this.statusBar.styleDefault();
       this.splashScreen.hide();
-
-      this.settingsService.load();
     });
   }
 

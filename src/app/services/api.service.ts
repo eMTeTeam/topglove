@@ -13,55 +13,36 @@ export class ApiService {
   doLogin = (params: any): Observable<any> => {
     const endpoint = 'users/v1/login';
     const url = environment.baseURL + endpoint;
-    return this.http.post(url, params, { responseType: 'text' });
-  }
-
-  doRegister = (params: any): Observable<any> => {
-    const endpoint = 'Organizations/v1';
-    const url = environment.baseURL + endpoint;
-    return this.http.post(url, params, { responseType: 'text' });
+    return this.http.post(url, params);
   }
 
   logout = () => {
-    sessionStorage.removeItem("userId");
+    localStorage.removeItem("userId");
+    localStorage.removeItem("isSuperUser");
   }
 
-  saveUserDetails = (params: any) => {
-
-  }
-
-  getMemberList = (teamId: any): Observable<any> => {
-    const endpoint = 'Teams/v1/' + teamId + '/members';
+  saveEntity = (params: any): Observable<any> => {
+    const endpoint = 'users/v1/signUp';
     const url = environment.baseURL + endpoint;
-    return this.http.get<Array<any>>(url);
+    return this.http.post(url, params);
   }
 
-  getGroups = (): Observable<any> => {
+  loadRecentSerialNo = (): Observable<any> => {
     const endpoint = 'Teams/v1/allTeams';
     const url = environment.baseURL + endpoint;
     return this.http.get<Array<any>>(url);
   }
 
-  removeMember = (teamId: any, userId: any): Observable<any> => {
-    const endpoint = 'Teams/v1/remove/' + userId + '?teamId=' + teamId;
-    const url = environment.baseURL + endpoint;
-    return this.http.put(url, null);
-  }
-
-  addMemberToTeam = (params: any): Observable<any> => {
+  loadAllEntity = (params: any): Observable<Array<any>> => {
     const endpoint = 'users/v1/signUp';
     const url = environment.baseURL + endpoint;
-    return this.http.post(url, params, { responseType: 'text' });
+    return this.http.post<Array<any>>(url, params);
   }
 
-  shareGroup = (params: any) => {
-
-  }
-
-  getDashboardReport = (params: any): Observable<any> => {
-    const endpoint = 'healthmeasures/v1/getDashBoardData';
+  loadDashboardData = (params: any): Observable<any> => {
+    const endpoint = 'users/v1/signUp';
     const url = environment.baseURL + endpoint;
-    return this.http.put(url, params);
+    return this.http.post(url, params);
   }
 
   getExcelReport = (params: any): Observable<HttpResponse<ArrayBuffer>> => {
@@ -75,53 +56,5 @@ export class ApiService {
       observe: 'response',
       responseType: 'arraybuffer'
     });
-  }
-
-  saveGroup = (params: any): Observable<any> => {
-    const endpoint = 'Teams/v1';
-    const url = environment.baseURL + endpoint;
-    return this.http.post(url, params);
-  }
-
-  getMyUserInfo = (): Observable<any> => {
-    const endpoint = 'users/v1/myDetail'
-    const url = environment.baseURL + endpoint;
-    return this.http.get(url);
-  }
-
-  getSettingsInfo = () => {
-
-  }
-
-  getTodayTimings = () => {
-
-  }
-
-  saveTodayTimings = (params: any) => {
-
-  }
-
-  getMyPrevilige = (): Observable<any> => {
-    const endpoint = 'users/v1/previleges'
-    const url = environment.baseURL + endpoint;
-    return this.http.get(url);
-  }
-
-  getTodaySlotInfo = (params: any): Observable<any> => {
-    const endpoint = 'HealthMeasures/v1/getDayMeasure?datetime=' + params;
-    const url = environment.baseURL + endpoint;
-    return this.http.get(url);
-  }
-
-  saveTempratureSlot = (params: any): Observable<any> => {
-    const endpoint = 'healthmeasures/v1/createOrUpdate';
-    const url = environment.baseURL + endpoint;
-    return this.http.post(url, params);
-  }
-
-  loadGroupInfo = (groupId: string): Observable<any> => {
-    const endpoint = 'teams/v1/getTeam/'
-    const url = environment.baseURL + endpoint + groupId;
-    return this.http.get(url);
   }
 }

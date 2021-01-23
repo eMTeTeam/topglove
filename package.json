@@ -1,9 +1,9 @@
 {
-  "name": "health-tracker",
+  "name": "top-glove",
   "version": "1.0.0",
   "author": "eMTe Team",
   "homepage": "",
-  "description": "Health Tracker App",
+  "description": "Top Glove App",
   "engines": {
     "node": "10.15.1",
     "npm": "6.4.1"

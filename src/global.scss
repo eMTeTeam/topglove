@@ -79,24 +79,6 @@
   padding-bottom: 5px;
 }
 
-.temp-container {
-  display: flex;
-  flex-direction: column;
-  height: calc(100vh - 120px);
-  justify-content: center;
-  align-items: center;
-
-  ion-icon {
-    font-size: 50px;
-    color: #16438b;
-    padding-bottom: 16px;
-  }
-
-  ion-text {
-    font-size: 20px;
-  }
-}
-
 .logo {
   height: 70px;
 }

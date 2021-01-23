@@ -2,10 +2,8 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import * as moment from 'moment';
 import { NotificationService } from '../../services/notification.service';
-import { SlotsService } from '../../services/slots.service';
 import { LoadingService } from '../../services/loading.service';
 import { ApiService } from '../../services/api.service';
-import { Subscription } from 'rxjs';
 import { UserService } from 'src/app/services/user.service';
 import { Factory, Users, FiringOrRework, Size, TypeOfFormers, Defetcs } from 'src/app/entities/topglove.domain.model';
 
@@ -76,11 +74,19 @@ export class Tab3Page {
 
   constructor(private router: Router,
     private toast: NotificationService,
-    private slotsService: SlotsService,
     private loadingService: LoadingService,
     private apiService: ApiService,
     public userService: UserService) {
+    this.loadData();
   }
 
+  loadData = () => {
+
+    this.apiService.loadDashboardData({}).subscribe((result: any) => {
+
+    }, (error: any) => {
+
+    });
+  }
 
 }

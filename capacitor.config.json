@@ -1,6 +1,6 @@
 {
   "appId": "io.ionic.starter",
-  "appName": "health-tracker",
+  "appName": "top-glove",
   "bundledWebRuntime": false,
   "npmClient": "npm",
   "webDir": "www",
