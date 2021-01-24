@@ -1,4 +1,8 @@
 <ion-content>
+  <ion-refresher slot="fixed" (ionRefresh)="loadData($event)">
+    <ion-refresher-content>
+    </ion-refresher-content>
+  </ion-refresher>
 
   <ion-grid class="main-grid">
 
@@ -34,21 +38,21 @@
         <ion-card>
           <ion-item lines="none">
             <ion-label>Accept</ion-label>
-            <ion-label>900</ion-label>
+            <ion-label>{{this.accepted}}</ion-label>
           </ion-item>
         </ion-card>
 
         <ion-card>
           <ion-item lines="none">
             <ion-label>Reject</ion-label>
-            <ion-label>100</ion-label>
+            <ion-label>{{this.rejected}}</ion-label>
           </ion-item>
         </ion-card>
 
         <ion-card>
           <ion-item lines="none">
             <ion-label>Total</ion-label>
-            <ion-label>2541</ion-label>
+            <ion-label>{{this.total}}</ion-label>
           </ion-item>
         </ion-card>
 

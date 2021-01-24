@@ -33,31 +33,23 @@ export class Tab2Page {
     return moment(date).format('DD-MM-YYYY');
   }
 
-  loadDate = () => {
-    this.list = [
-      {
-        SerialNo: 1,
-        Accept: true,
-        Date: moment().toDate(),
-        DefectType: null,
-        Factory: 'F01',
-        FiringType: null,
-        Former: 'GPT',
-        Size: 'XS',
-        User: 'user 1'
-      },
-      {
-        SerialNo: 1,
-        Accept: false,
-        Date: moment().toDate(),
-        DefectType: 'Pinhole',
-        Factory: 'F01',
-        FiringType: 'Rework',
-        Former: 'GPT',
-        Size: 'XS',
-        User: 'user 1'
-      }
-    ]
+  loadDate = (event: any = null) => {
+    if (event) {
+      event.target.complete();
+    }
+
+    const today: Date = moment().toDate();
+
+    const payload = {
+      "fromDate": today,
+      "toDate": today
+    }
+
+    this.apiService.loadAllEntity(payload).subscribe((result: Array<any>) => {
+      this.list = result;
+    }, (error: any) => {
+
+    });
   }
 
   openItem = (item: TopGlovEntity) => {

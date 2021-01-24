@@ -32,11 +32,11 @@ export class UserService {
     return true;
   }
 
-  get user(): string {
+  get User(): string {
     return this._user;
   }
 
-  set user(user: string) {
+  set User(user: string) {
     localStorage.setItem("userId", user);
     this._user = user;
   }

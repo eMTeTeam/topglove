@@ -26,7 +26,7 @@ export class LoadingService {
         this.dismiss();
     }
 
-    dismiss = () => {
+    private dismiss = () => {
         if (this.loading) {
             this.loading.dismiss();
             this.clear();

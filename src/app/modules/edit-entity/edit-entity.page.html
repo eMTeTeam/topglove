@@ -17,19 +17,19 @@
 
         <ion-col>
           <ion-item>
-            <ion-label style="text-align: center;">Serial No: {{item.SerialNo}}</ion-label>
+            <ion-label style="text-align: center;">Serial No: {{item.serialNumber}}</ion-label>
           </ion-item>
         </ion-col>
 
         <ion-col>
           <ion-item>
-            <ion-label style="text-align: center;">Date: {{item.Date}}</ion-label>
+            <ion-label style="text-align: center;">Date: {{item.createdDateTime}}</ion-label>
           </ion-item>
         </ion-col>
 
         <ion-col>
           <ion-item>
-            <ion-label style="text-align: center;">User: {{item.User}} </ion-label>
+            <ion-label style="text-align: center;">User: {{item.user}} </ion-label>
           </ion-item>
         </ion-col>
 
@@ -41,7 +41,7 @@
           <ion-item class="main-item">
             <ion-label position="floating">Type Of Formers<ion-text color="danger">*</ion-text>
             </ion-label>
-            <ion-select placeholder="Select former" [(ngModel)]="item.Former">
+            <ion-select placeholder="Select former" [(ngModel)]="item.typeOfFormer">
               <ion-select-option value="{{f}}" *ngFor="let f of _typeOfFormers">{{f}}</ion-select-option>
             </ion-select>
           </ion-item>
@@ -51,7 +51,7 @@
           <ion-item>
             <ion-label position="floating">Size<ion-text color="danger">*</ion-text>
             </ion-label>
-            <ion-select placeholder="Select size" [(ngModel)]="item.Size">
+            <ion-select placeholder="Select size" [(ngModel)]="item.size">
               <ion-select-option value="{{s}}" *ngFor="let s of _Size">{{s}}</ion-select-option>
             </ion-select>
           </ion-item>
@@ -61,7 +61,7 @@
           <ion-item class="main-item">
             <ion-label position="floating">Factory<ion-text color="danger">*</ion-text>
             </ion-label>
-            <ion-select placeholder="Select factory" [(ngModel)]="item.Factory">
+            <ion-select placeholder="Select factory" [(ngModel)]="item.factory">
               <ion-select-option value="{{fa}}" *ngFor="let fa of _factory">{{fa}}</ion-select-option>
             </ion-select>
           </ion-item>
@@ -70,7 +70,7 @@
         <ion-col>
           <ion-item class="main-item">
             <ion-label position="floating">Firing / Re-Work </ion-label>
-            <ion-select placeholder="Select Firing / Re-Work" [(ngModel)]="item.FiringType">
+            <ion-select placeholder="Select Firing / Re-Work" [(ngModel)]="item.firingOrRework">
               <ion-select-option value="{{fr}}" *ngFor="let fr of _firingOrRework">{{fr}}</ion-select-option>
             </ion-select>
           </ion-item>

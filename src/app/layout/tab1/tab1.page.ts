@@ -32,36 +32,86 @@ export class Tab1Page {
     private loadingService: LoadingService,
     private apiService: ApiService,
     public userService: UserService) {
-    this.serialNo = 1;
+    this.loadRecentSerialNo();
   }
 
   accept = () => {
-    this.toast.success(`Serial no. ${this.serialNo} has been accepted!`);
-    this.serialNo++;
+    if (this.validateForm()) {
+      this.loadingService.show();
+
+      const payload = {
+        "serialNumber": this.serialNo,
+        "user": this.userService.User,
+        "typeOfFormer": this.formerType,
+        "factory": this.factory,
+        "firingOrRework": this.firingOrReWork,
+        "size": this.size,
+        "defectDetails": '',
+        "quality": "accept"
+      };
+
+      const message: string = `Serial no. ${this.serialNo} has been accepted!`;
+
+      this.save(payload, message);
+    } else {
+      this.toast.info('Please select valid data.');
+    }
   }
 
   reject = (type: string) => {
-    this.toast.error(`Serial no. ${this.serialNo} has been rejected with ${type}!`);
-    this.serialNo++;
+    this.loadingService.show();
+
+    const payload = {
+      "serialNumber": this.serialNo,
+      "user": this.userService.User,
+      "typeOfFormer": this.formerType,
+      "factory": this.factory,
+      "firingOrRework": this.firingOrReWork,
+      "size": this.size,
+      "defectDetails": type,
+      "quality": "reject"
+    };
+
+    const message: string = `Serial no. ${this.serialNo} has been rejected with defect details ${type}!`;
+
+    this.save(payload, message);
   }
 
-  validateForm = () => {
+  validateForm = (): boolean => {
+    return (this.formerType !== null && this.size !== null && this.factory !== null);
   }
 
-  save = () => {
+  save = (payload: any, message: string) => {
+    this.apiService.insertEntity(payload).subscribe((result: any) => {
+      this.loadingService.hide();
 
-    this.apiService.saveEntity({}).subscribe((result: any) => {
-
+      if (result) {
+        this.serialNo = result['serialNumber'] + 1;
+        this.toast.success(message);
+      } else {
+        // todo alert
+      }
     }, (error: any) => {
+      this.loadingService.hide();
 
+      // todo alert
     });
   }
 
-  loadRecentSerialNo = () => {
-    this.apiService.loadRecentSerialNo().subscribe((result: any) => {
+  loadRecentSerialNo = (event: any = null) => {
+    this.loadingService.show();
 
+    if (event) {
+      event.target.complete();
+    }
+
+    this.apiService.loadRecentSerialNo(this.userService.User).subscribe((result: any) => {
+      this.loadingService.hide();
+      this.serialNo = result + 1;
     }, (error: any) => {
+      this.loadingService.hide();
 
+      // todo alert
     });
   }
 

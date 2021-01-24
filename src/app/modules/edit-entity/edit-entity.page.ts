@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Defetcs, Factory, FiringOrRework, Size, TypeOfFormers } from 'src/app/entities/topglove.domain.model';
 import { TopGlovEntity } from 'src/app/entities/topglove.model';
 import { ApiService } from 'src/app/services/api.service';
+import { NavController } from '@ionic/angular';
 
 @Component({
   selector: 'app-edit-entity',
@@ -18,7 +19,8 @@ export class EditEntityPage implements OnInit {
   _Size: string[] = Size.data;
   _defetcs: string[] = Defetcs.data;
 
-  constructor(private apiService: ApiService) {
+  constructor(private apiService: ApiService,
+    private navCtrl: NavController) {
     const { item } = window.history.state;
 
     this.item = item;
@@ -27,17 +29,20 @@ export class EditEntityPage implements OnInit {
   ngOnInit() {
   }
 
-  reject = () => {
-
+  reject = (type: string) => {
+    this.item['defectDetails'] = type;
+    this.item['quality'] = 'reject';
+    this.save();
   }
 
   accept = () => {
-
+    this.item['quality'] = 'accept';
+    this.save();
   }
 
   save = () => {
-    this.apiService.saveEntity({}).subscribe((result: any) => {
-
+    this.apiService.updateEntity(this.item).subscribe((result: any) => {
+      this.navCtrl.navigateBack('/tabs/tab2');
     }, (error: any) => {
 
     });

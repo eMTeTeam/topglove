@@ -38,7 +38,7 @@ export class LoginPage implements OnInit {
       const user: string = this.loginForm.value.userName.toLowerCase();
       if (this.users.includes(user)) {
         this.loadingService.show();
-        this.userService.user = this.loginForm.value.userName;
+        this.userService.User = this.loginForm.value.userName;
 
         if (user === 'test') {
           this.userService.IsSuperUser = true;

@@ -19,17 +19,18 @@ export class Tab3Page {
 
   _factory: string[] = Factory.data;
   factory: string = this._factory[0];
-
   _users: string[] = Users.data;
-
   from: string = moment().format("YYYY-MM-DD");
   to: string = moment().format("YYYY-MM-DD");
 
-  public pieChartLabels: Label[] = [['Download', 'Sales'], ['In', 'Store', 'Sales'], 'Mail Sales'];
-  public pieChartData: number[] = [300, 500, 100];
+  accepted: number = 0;
+  rejected: number = 0;
+  total: number = 0;
+
+  public pieChartLabels: Label[] = [];
+  public pieChartData: number[] = [];
   public pieChartType: ChartType = 'pie';
   public pieChartLegend = true;
-
 
   public barChartOptions: ChartOptions = {
     responsive: true,
@@ -80,13 +81,60 @@ export class Tab3Page {
     this.loadData();
   }
 
-  loadData = () => {
+  loadData = (event: any = null) => {
 
-    this.apiService.loadDashboardData({}).subscribe((result: any) => {
+    if (event) {
+      event.target.complete();
+    }
 
+    const f: Date = moment(this.from).toDate();
+    const t: Date = moment(this.to).toDate();
+
+    const payload = {
+      "fromDate": this.from,
+      "toDate": this.to,
+      "factory": this.factory
+    }
+
+    this.apiService.loadAllEntity(payload).subscribe((result: Array<any>) => {
+      this.resolveHeader(result);
+      this.preparePieChart(result);
+      this.prepareBarChart(result);
+      this.prepareStackedBarChart(result);
     }, (error: any) => {
 
     });
+  }
+
+  resolveHeader = (result: Array<any>) => {
+    this.total = result.length;
+
+    this.accepted = result.filter(i => i['quality'] && i['quality'].toLowerCase() === 'accept').length;
+
+    this.rejected = result.filter(i => i['quality'] && i['quality'].toLowerCase() === 'reject').length;
+  }
+
+  preparePieChart = (result: Array<any>) => {
+    let labels: Array<string> = result.map(i => i.defectDetails);
+    labels = labels.filter(i => i !== null && i !== undefined && i !== '');
+
+    const data: Array<number> = [];
+
+    labels.forEach(v => {
+      const count = result.filter(i => i['defectDetails'] === v).length;
+      data.push(count);
+    });
+
+    this.pieChartLabels = labels;
+    this.pieChartData = data;
+  }
+
+  prepareBarChart = (result: Array<any>) => {
+
+  }
+
+  prepareStackedBarChart = (result: Array<any>) => {
+
   }
 
 }
