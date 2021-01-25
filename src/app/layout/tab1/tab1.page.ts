@@ -59,6 +59,7 @@ export class Tab1Page {
   }
 
   reject = (type: string) => {
+    if(this.validateForm()){
     this.loadingService.show();
 
     const payload = {
@@ -75,6 +76,10 @@ export class Tab1Page {
     const message: string = `Serial no. ${this.serialNo} has been rejected with defect details ${type}!`;
 
     this.save(payload, message);
+  }
+    else{
+      this.toast.info('Please select valid data.');
+    }
   }
 
   validateForm = (): boolean => {
@@ -103,6 +108,7 @@ export class Tab1Page {
 
     if (event) {
       event.target.complete();
+      this.loadingService.hide();
     }
 
     this.apiService.loadRecentSerialNo(this.userService.User).subscribe((result: any) => {

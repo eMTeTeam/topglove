@@ -8,7 +8,7 @@ import { UserService } from 'src/app/services/user.service';
 import { Factory, Users, FiringOrRework, Size, TypeOfFormers, Defetcs } from 'src/app/entities/topglove.domain.model';
 
 import { ChartType, ChartOptions, ChartDataSets } from 'chart.js';
-import { Label } from 'ng2-charts';
+import { Color, Label } from 'ng2-charts';
 
 @Component({
   selector: 'app-tab3',
@@ -31,6 +31,7 @@ export class Tab3Page {
   public pieChartData: number[] = [];
   public pieChartType: ChartType = 'pie';
   public pieChartLegend = true;
+  public colors: Color[] = [];
 
   public barChartOptions: ChartOptions = {
     responsive: true,
@@ -91,8 +92,8 @@ export class Tab3Page {
     const t: Date = moment(this.to).toDate();
 
     const payload = {
-      "fromDate": this.from,
-      "toDate": this.to,
+      "fromDate": new Date(this.from),
+      "toDate": new Date(this.to),
       "factory": this.factory
     }
 
@@ -127,6 +128,10 @@ export class Tab3Page {
 
     this.pieChartLabels = labels;
     this.pieChartData = data;
+
+    this.colors = [{
+      backgroundColor:["#0074D9", "#FF4136", "#2ECC40", "#FF851B", "#7FDBFF", "#B10DC9", "#FFDC00", "#001f3f", "#39CCCC", "#01FF70", "#85144b"]
+    }];
   }
 
   prepareBarChart = (result: Array<any>) => {
