@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
-import { Router } from '@angular/router';
 import * as moment from 'moment';
 import { NotificationService } from '../../services/notification.service';
 import { LoadingService } from '../../services/loading.service';
 import { ApiService } from '../../services/api.service';
 import { UserService } from 'src/app/services/user.service';
-import { Factory, FiringOrRework, Size, TypeOfFormers, Defetcs } from 'src/app/entities/topglove.domain.model';
+import { Factory, FiringOrRework, Size, TypeOfFormers, Defetcs }
+  from 'src/app/entities/topglove.domain.model';
 
 @Component({
   selector: 'app-tab1',
@@ -15,8 +15,8 @@ import { Factory, FiringOrRework, Size, TypeOfFormers, Defetcs } from 'src/app/e
 export class Tab1Page {
 
   serialNo: number = null;
-  today: string = moment().format("DD-MMM-YYYY");
   formerType: string = null;
+  qualityDate: Date = null;
   size: string = null;
   factory: string = null;
   firingOrReWork: string = null;
@@ -27,14 +27,16 @@ export class Tab1Page {
   _Size: string[] = Size.data;
   _defetcs: string[] = Defetcs.data;
 
-  constructor(private router: Router,
-    private toast: NotificationService,
+  constructor(private toast: NotificationService,
     private loadingService: LoadingService,
     private apiService: ApiService,
     public userService: UserService) {
-    this.loadRecentSerialNo();
+
   }
 
+  ionViewWillEnter() {
+    this.loadRecentSerialNo();
+  }
   accept = () => {
     if (this.validateForm()) {
       this.loadingService.show();
@@ -42,12 +44,14 @@ export class Tab1Page {
       const payload = {
         "serialNumber": this.serialNo,
         "user": this.userService.User,
+        "workStation": this.userService.WorkStation,
         "typeOfFormer": this.formerType,
         "factory": this.factory,
         "firingOrRework": this.firingOrReWork,
         "size": this.size,
         "defectDetails": '',
-        "quality": "accept"
+        "quality": "accept",
+        "createdDateTime": this.qualityDate
       };
 
       const message: string = `Serial no. ${this.serialNo} has been accepted!`;
@@ -59,31 +63,33 @@ export class Tab1Page {
   }
 
   reject = (type: string) => {
-    if(this.validateForm()){
-    this.loadingService.show();
+    if (this.validateForm()) {
+      this.loadingService.show();
 
-    const payload = {
-      "serialNumber": this.serialNo,
-      "user": this.userService.User,
-      "typeOfFormer": this.formerType,
-      "factory": this.factory,
-      "firingOrRework": this.firingOrReWork,
-      "size": this.size,
-      "defectDetails": type,
-      "quality": "reject"
-    };
+      const payload = {
+        "serialNumber": this.serialNo,
+        "user": this.userService.User,
+        "workStation": this.userService.WorkStation,
+        "typeOfFormer": this.formerType,
+        "factory": this.factory,
+        "firingOrRework": this.firingOrReWork,
+        "size": this.size,
+        "defectDetails": type,
+        "quality": "reject",
+        "createdDateTime": this.qualityDate
+      };
 
-    const message: string = `Serial no. ${this.serialNo} has been rejected with defect details ${type}!`;
+      const message: string = `Serial no. ${this.serialNo} has been rejected with defect details ${type}!`;
 
-    this.save(payload, message);
-  }
-    else{
+      this.save(payload, message);
+    }
+    else {
       this.toast.info('Please select valid data.');
     }
   }
 
   validateForm = (): boolean => {
-    return (this.formerType !== null && this.size !== null && this.factory !== null);
+    return (this.formerType !== null && this.size !== null && this.factory !== null && this.qualityDate !== null);
   }
 
   save = (payload: any, message: string) => {

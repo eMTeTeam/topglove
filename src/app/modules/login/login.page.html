@@ -2,10 +2,21 @@
 
   <div class="login-card">
 
-    <img slot="start" class="logo-large" src="../../../assets/icon/favicon.png" />
+    <img slot="start" src="../../../assets/icon/favicon.png" />
 
     <form (ngSubmit)="doLogin()" [formGroup]="loginForm" padding>
-      <ion-input required type="text" placeholder="username" name="username" formControlName="userName"></ion-input>
+      <ion-input required type="text" placeholder="Username" name="username" formControlName="userName">
+        <ion-icon name="person-outline"></ion-icon>
+      </ion-input>
+
+
+      <ion-item class="ion-margin-top">
+        <ion-icon name="desktop-outline"></ion-icon>
+        <ion-select interface="popover" side="start" required placeholder="WorkStation" formControlName="workStation">
+          <ion-select-option value="{{ws}}" *ngFor="let ws of workStations">{{ws}}</ion-select-option>
+        </ion-select>
+      </ion-item>
+
 
       <div class="ion-padding-top">
         <ion-button expand="block" type="submit" class="ion-no-margin btn-fill">Login</ion-button>

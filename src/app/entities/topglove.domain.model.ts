@@ -1,5 +1,5 @@
-export class Users {
-    static data: Array<string> = ['ayu', 'table2', 'table3', 'table4', 'table5', 'table6', 'test'];
+export class WorkStations {
+    static data: Array<string> = ['ayu', 'table2', 'table3', 'table4', 'table5', 'table6'];
 }
 
 export class TypeOfFormers {
@@ -23,5 +23,7 @@ export class Size {
 }
 
 export class Defetcs {
-    static data: Array<string> = ['PinHole', 'SPM', 'FB', 'FR', 'GC', 'BS', 'Crackline', 'others'];
+    static data: Array<string> = ['Pin Hole',
+        'Sharp Pimple', 'Fiber', 'Finger Reglaze',
+        'Glace Crack', 'Blackspot', 'Crackline', 'others'];
 }

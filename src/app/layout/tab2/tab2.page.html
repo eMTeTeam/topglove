@@ -1,44 +1,113 @@
-<ion-content>
+<ion-content class="ion-padding-start ion-padding-end">
     <ion-refresher slot="fixed" (ionRefresh)="loadDate($event)">
         <ion-refresher-content>
         </ion-refresher-content>
     </ion-refresher>
+    <ion-row class="main-row">
+        <ion-col size="3">
+            <ion-item lines="none">
+                <ion-label position="floating">From</ion-label>
+                <ion-datetime [(ngModel)]="from"></ion-datetime>
+            </ion-item>
+        </ion-col>
+
+        <ion-col size="3">
+            <ion-item lines="none">
+                <ion-label position="floating">To</ion-label>
+                <ion-datetime [(ngModel)]="to"></ion-datetime>
+            </ion-item>
+        </ion-col>
+
+        <ion-col size="3">
+            <ion-item lines="none">
+                <ion-label position="floating">WorkStation</ion-label>
+                <ion-select interface="popover" placeholder="WorkStation" [(ngModel)]="workStation">
+                    <ion-select-option value="{{ws}}" *ngFor="let ws of _workStations">{{ws}}</ion-select-option>
+                </ion-select>
+            </ion-item>
+        </ion-col>
+
+        <ion-col size="3">
+            <ion-item lines="none">
+                <ion-label position="floating">Factory</ion-label>
+                <ion-select interface="popover" placeholder="Factory" [(ngModel)]="factory">
+                    <ion-select-option value="{{f}}" *ngFor="let f of _factory">{{f}}</ion-select-option>
+                </ion-select>
+            </ion-item>
+        </ion-col>
+    </ion-row>
+
+    <ion-button class="ion-padding-start" (click)="loadDate()">Filter</ion-button>
 
     <ion-list class="main-list" lines="full">
 
-        <ion-row *ngFor="let item of list" class="row click" (click)="openItem(item)">
-            <ion-col size="1">
-                <ion-label>S.No: {{item.serialNumber}}</ion-label>
-            </ion-col>
-            <ion-col size="2">
-                <ion-label>{{formatDateTime(item.createdDateTime)}}</ion-label>
-            </ion-col>
-            <ion-col size="1">
-                <ion-label>{{item.user}}</ion-label>
-            </ion-col>
-            <ion-col size="1">
-                <ion-label>{{item.typeOfFormer}}</ion-label>
-            </ion-col>
-            <ion-col size="1">
-                <ion-label>{{item.size}}</ion-label>
-            </ion-col>
-            <ion-col size="1">
-                <ion-label>{{item.factory}}</ion-label>
-            </ion-col>
-            <ion-col size="1">
-                <ion-label>{{item.firingOrRework}}</ion-label>
-            </ion-col>
-            <ion-col size="1" *ngIf="item.defectDetails">
-                <ion-chip color="warning" class="chip">
-                    <ion-label>{{item.defectDetails}}</ion-label>
-                </ion-chip>
-            </ion-col>
-            <ion-col size=" {{item.defectDetails ? 3 : 4 }}">
-                <ion-chip color="{{item.quality === 'accept' ? 'success' : 'danger'}}" class="chip flot-right">
-                    <ion-label>{{item.quality}}</ion-label>
-                </ion-chip>
-            </ion-col>
-        </ion-row>
+        <div *ngFor="let user of list">
+            <div class="chartHeader">
+                user: {{user.key}}
+            </div>
+            <ion-row class="gridHeader">
+                <ion-col size="1">
+                    <ion-label>S.No</ion-label>
+                </ion-col>
+                <ion-col size="2">
+                    <ion-label>Created</ion-label>
+                </ion-col>
+                <ion-col size="1">
+                    <ion-label>User</ion-label>
+                </ion-col>
+                <ion-col size="1">
+                    <ion-label>Former</ion-label>
+                </ion-col>
+                <ion-col size="1">
+                    <ion-label>Size</ion-label>
+                </ion-col>
+                <ion-col size="1">
+                    <ion-label>Factory</ion-label>
+                </ion-col>
+                <ion-col size="2">
+                    <ion-label>Firing/Rework</ion-label>
+                </ion-col>
+                <ion-col size="2">
+                    <ion-label>Defect</ion-label>
+                </ion-col>
+                <ion-col size="1">
+                    <ion-label>Status</ion-label>
+                </ion-col>
+            </ion-row>
+            <ion-row *ngFor="let item of user.data" (click)="openItem(item)" class="row click">
+                <ion-col size="1">
+                    <ion-label>{{item.serialNumber}}</ion-label>
+                </ion-col>
+                <ion-col size="2">
+                    <ion-label>{{formatDateTime(item.createdDateTime)}}</ion-label>
+                </ion-col>
+                <ion-col size="1">
+                    <ion-label>{{item.user}}</ion-label>
+                </ion-col>
+                <ion-col size="1">
+                    <ion-label>{{item.typeOfFormer}}</ion-label>
+                </ion-col>
+                <ion-col size="1">
+                    <ion-label>{{item.size}}</ion-label>
+                </ion-col>
+                <ion-col size="1">
+                    <ion-label>{{item.factory}}</ion-label>
+                </ion-col>
+                <ion-col size="2">
+                    <ion-label>{{item.firingOrRework}}</ion-label>
+                </ion-col>
+                <ion-col size="2">
+                    <ion-chip color="warning" class="chip">
+                        <ion-label>{{item.defectDetails}}</ion-label>
+                    </ion-chip>
+                </ion-col>
+                <ion-col size="1">
+                    <ion-chip color="{{item.quality === 'accept' ? 'success' : 'danger'}}" class="chip flot-right">
+                        <ion-label>{{item.quality}}</ion-label>
+                    </ion-chip>
+                </ion-col>
+            </ion-row>
+        </div>
     </ion-list>
 
 </ion-content>

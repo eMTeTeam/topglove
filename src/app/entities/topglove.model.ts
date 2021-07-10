@@ -8,5 +8,12 @@ export interface TopGlovEntity {
     factory: string,
     firingOrRework: string | null | undefined,
     defectDetails: string | null | undefined,
-    quality: string
+    quality: string,
+    workStation: string
+}
+
+export interface User {
+    userId: string,
+    name: string,
+    isSuperUser: boolean
 }

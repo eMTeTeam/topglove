@@ -9,69 +9,67 @@
     <ion-row class="main-row">
       <ion-col size="3">
         <ion-item lines="none">
-          <ion-label>From</ion-label>
+          <ion-label position="floating">From</ion-label>
           <ion-datetime [(ngModel)]="from"></ion-datetime>
         </ion-item>
       </ion-col>
 
       <ion-col size="3">
         <ion-item lines="none">
-          <ion-label>To</ion-label>
+          <ion-label position="floating">To</ion-label>
           <ion-datetime [(ngModel)]="to"></ion-datetime>
         </ion-item>
       </ion-col>
 
-      <ion-col size="3">
-        <ion-item lines="none">
-          <ion-label>Factory</ion-label>
-          <ion-select [(ngModel)]="factory">
-            <ion-select-option value="{{fa}}" *ngFor="let fa of _factory">{{fa}}</ion-select-option>
-          </ion-select>
-        </ion-item>
+      <ion-col size="6" style="text-align: right;">
+        <ion-button (click)="loadData()">Filter</ion-button>
       </ion-col>
     </ion-row>
 
 
     <ion-row class="main-row">
 
-      <ion-col size="6">
+      <ion-col size="4">
         <ion-card>
           <ion-item lines="none">
-            <ion-label>Accept</ion-label>
+            <ion-label style="color: green;">Accept</ion-label>
             <ion-label>{{this.accepted}}</ion-label>
           </ion-item>
         </ion-card>
-
+      </ion-col>
+      <ion-col size="4">
         <ion-card>
           <ion-item lines="none">
-            <ion-label>Reject</ion-label>
+            <ion-label style="color: red;">Reject</ion-label>
             <ion-label>{{this.rejected}}</ion-label>
           </ion-item>
         </ion-card>
-
+      </ion-col>
+      <ion-col size="4">
         <ion-card>
           <ion-item lines="none">
             <ion-label>Total</ion-label>
             <ion-label>{{this.total}}</ion-label>
           </ion-item>
         </ion-card>
-
-      </ion-col>
-
-      <ion-col size="6">
-        <canvas baseChart [data]="pieChartData" [labels]="pieChartLabels" [chartType]="pieChartType" [colors]="colors"></canvas>
       </ion-col>
     </ion-row>
 
 
     <ion-row class="main-row">
-      <ion-col size="6" class="chart-bar">
+      <ion-col size="12" class="chartHeader">Defects</ion-col>
+      <ion-col size="12">
+        <canvas baseChart [data]="pieChartData" [labels]="pieChartLabels" [chartType]="pieChartType"
+          [colors]="colors"></canvas>
+      </ion-col>
+      <ion-col size="12" class="chartHeader">Factory Defects</ion-col>
+      <ion-col size="12" class="chart-bar">
         <canvas baseChart [datasets]="barChartData" [labels]="barChartLabels" [options]="barChartOptions"
           [legend]="barChartLegend" [chartType]="barChartType">
         </canvas>
       </ion-col>
-
-      <ion-col size="6">
+      <ion-col size="12" class="chartHeader">Accepted/Rejected</ion-col>
+      <ion-col size="12">
         <canvas baseChart [datasets]="stackedarChartData" [labels]="stackedBarChartLabels"
           [options]="stackedBarChartOptions" [legend]="stackedBarChartLegend" [chartType]="stackedBarChartType">
         </canvas>

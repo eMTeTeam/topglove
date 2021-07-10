@@ -5,7 +5,7 @@ import { NotificationService } from '../../services/notification.service';
 import { LoadingService } from '../../services/loading.service';
 import { ApiService } from '../../services/api.service';
 import { UserService } from 'src/app/services/user.service';
-import { Factory, Users, FiringOrRework, Size, TypeOfFormers, Defetcs } from 'src/app/entities/topglove.domain.model';
+import { Factory, WorkStations } from 'src/app/entities/topglove.domain.model';
 
 import { ChartType, ChartOptions, ChartDataSets } from 'chart.js';
 import { Color, Label } from 'ng2-charts';
@@ -18,8 +18,13 @@ import { Color, Label } from 'ng2-charts';
 export class Tab3Page {
 
   _factory: string[] = Factory.data;
-  factory: string = this._factory[0];
-  _users: string[] = Users.data;
+  public factory: string = null;
+
+  _workStations: string[] = WorkStations.data;
+  public workStation: string = null;
+
+  user: string = this.userService.User;
+
   from: string = moment().format("YYYY-MM-DD");
   to: string = moment().format("YYYY-MM-DD");
 
@@ -35,8 +40,16 @@ export class Tab3Page {
 
   public barChartOptions: ChartOptions = {
     responsive: true,
+
     // We use these empty structures as placeholders for dynamic theming.
-    scales: { xAxes: [{}], yAxes: [{}] },
+    scales: {
+      xAxes: [{}], yAxes: [{
+        ticks: {
+          beginAtZero: true,
+          stepSize: 1
+        }
+      }]
+    },
     plugins: {
       datalabels: {
         anchor: 'end',
@@ -48,14 +61,7 @@ export class Tab3Page {
   public barChartLabels: Label[] = [this.factory];
   public barChartType: ChartType = 'bar';
   public barChartLegend = true;
-  public barChartData: ChartDataSets[] = [
-    { data: [65], label: 'Defect A' },
-    { data: [28], label: 'Defect B' },
-    { data: [65], label: 'Defect C' },
-    { data: [95], label: 'Defect D' },
-    { data: [65], label: 'Defect E' },
-    { data: [34], label: 'Defect F' }
-  ];
+  public barChartData: ChartDataSets[] = [];
 
   public stackedBarChartOptions: ChartOptions = {
     responsive: true,
@@ -65,7 +71,7 @@ export class Tab3Page {
     },
   };
 
-  public stackedBarChartLabels: Label[] = this._users;
+  public stackedBarChartLabels: Label[] = this._workStations;
   public stackedBarChartType: ChartType = 'horizontalBar';
   public stackedBarChartLegend = true;
 
@@ -74,14 +80,14 @@ export class Tab3Page {
     { data: [2, 4], label: 'Rejected', backgroundColor: '#eb445a' }
   ];
 
-  constructor(private router: Router,
-    private toast: NotificationService,
+  constructor(private toast: NotificationService,
     private loadingService: LoadingService,
     private apiService: ApiService,
     public userService: UserService) {
+  }
+  ionViewWillEnter() {
     this.loadData();
   }
-
   loadData = (event: any = null) => {
 
     if (event) {
@@ -94,16 +100,22 @@ export class Tab3Page {
     const payload = {
       "fromDate": new Date(this.from),
       "toDate": new Date(this.to),
-      "factory": this.factory
+      //  "factory": this.factory
     }
 
+    if (!this.userService.IsSuperUser) {
+      payload["User"] = this.userService.User;
+    }
+
+    this.loadingService.show();
     this.apiService.loadAllEntity(payload).subscribe((result: Array<any>) => {
       this.resolveHeader(result);
       this.preparePieChart(result);
       this.prepareBarChart(result);
       this.prepareStackedBarChart(result);
+      this.loadingService.hide();
     }, (error: any) => {
-
+      this.loadingService.hide();
     });
   }
 
@@ -116,7 +128,8 @@ export class Tab3Page {
   }
 
   preparePieChart = (result: Array<any>) => {
-    let labels: Array<string> = result.map(i => i.defectDetails);
+    // let labels: Array<string> = result.map(i => i.defectDetails);
+    var labels = result.map((value) => value.defectDetails).filter((value, index, _arr) => _arr.indexOf(value) == index);
     labels = labels.filter(i => i !== null && i !== undefined && i !== '');
 
     const data: Array<number> = [];
@@ -130,16 +143,57 @@ export class Tab3Page {
     this.pieChartData = data;
 
     this.colors = [{
-      backgroundColor:["#0074D9", "#FF4136", "#2ECC40", "#FF851B", "#7FDBFF", "#B10DC9", "#FFDC00", "#001f3f", "#39CCCC", "#01FF70", "#85144b"]
+      backgroundColor: ["#0074D9", "#FF4136", "#2ECC40", "#FF851B", "#7FDBFF", "#B10DC9", "#FFDC00", "#001f3f", "#39CCCC", "#01FF70", "#85144b"]
     }];
   }
 
   prepareBarChart = (result: Array<any>) => {
+    var uniqueDefects = result.map((value) => value.defectDetails).filter((value, index, _arr) => _arr.indexOf(value) == index);
 
+    uniqueDefects = uniqueDefects.filter(i => i !== null && i !== undefined && i !== '');
+
+    var uniqueFactories = result.map((value) => value.factory).filter((value, index, _arr) => _arr.indexOf(value) == index);
+    uniqueFactories = uniqueFactories.filter(i => i !== null && i !== undefined && i !== '');
+    this.barChartData = [];
+    this.barChartLabels = [];
+    var factoryWiseData = [];
+    uniqueDefects.forEach((defect) => {
+      factoryWiseData.push({ data: [], label: defect });
+    })
+    uniqueFactories.forEach((factory) => {
+      this.barChartLabels.push(factory);
+      factoryWiseData.forEach((value) => {
+        var countData = result.filter(data => {
+          return data.defectDetails === value.label && data.factory === factory;
+        });
+        value.data.push(countData.length);
+      })
+    })
+    this.barChartData = factoryWiseData;
   }
 
   prepareStackedBarChart = (result: Array<any>) => {
-
+    var uniqueUsers = result.map((value) => value.user).filter((value, index, _arr) => _arr.indexOf(value) == index);
+    this.stackedBarChartLabels = [];
+    var acceptedArray = [];
+    var rejectedArray = [];
+    uniqueUsers.forEach((value) => {
+      var countDataAccepted = result.filter(data => {
+        return data.quality == "accept" && data.user == value;
+      });
+      var countDataRejected = result.filter(data => {
+        return data.quality == "reject" && data.user == value;
+      });
+      this.stackedBarChartLabels.push(value);
+      acceptedArray.push(countDataAccepted.length);
+      rejectedArray.push(countDataRejected.length);
+      // var data={data:[countDataAccepted.length,countDataRejected.length], label:value};
+      // this.barChartData.push(data);
+    })
+    this.stackedarChartData = [
+      { data: acceptedArray, label: 'Accepted', backgroundColor: '#2dd36f' },
+      { data: rejectedArray, label: 'Rejected', backgroundColor: '#eb445a' }
+    ];
   }
 
 }

@@ -2,43 +2,57 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpResponse, HttpHeaders } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { Observable } from 'rxjs';
+import { User } from '../entities/topglove.model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ApiService {
 
-  constructor(private http: HttpClient) { }
+  private ProductQualityApi = 'quality/v1';
+  private UserApi = 'user/v1';
 
-  doLogin = (params: any) => {
+  constructor(private http: HttpClient) {
+
+  }
+
+  getProductApiUrl = (endpoint: string) => {
+    return `${environment.baseURL}/${this.ProductQualityApi}/${endpoint}`;
+  }
+
+  getUserApiUrl = (endpoint: string) => {
+    return `${environment.baseURL}/${this.UserApi}/${endpoint}`;
+  }
+
+  doLogin = (params: any): Observable<any> => {
+    const url = this.getUserApiUrl('login');
+    return this.http.post(url, params);
   }
 
   logout = () => {
     localStorage.removeItem("userId");
     localStorage.removeItem("isSuperUser");
+    localStorage.removeItem("workStation");
   }
 
   insertEntity = (params: any): Observable<any> => {
-    const endpoint = 'AddQualityDetail';
-    const url = environment.baseURL + endpoint;
+    const url = this.getProductApiUrl('AddQualityDetail');
     return this.http.post(url, params);
   }
 
   updateEntity = (params: any): Observable<any> => {
-    const endpoint = 'Update';
-    const url = environment.baseURL + endpoint;
+    const url = this.getProductApiUrl('Update');
     return this.http.post(url, params);
   }
 
   loadRecentSerialNo = (user: string): Observable<any> => {
-    const endpoint = 'GetMaxCount';
-    const url = environment.baseURL + endpoint + '?user=' + user;
+    const endpoint = `GetMaxCount?user=${user}`;
+    const url = this.getProductApiUrl(endpoint);
     return this.http.get(url);
   }
 
   loadAllEntity = (params: any): Observable<Array<any>> => {
-    const endpoint = 'FilteredItems';
-    const url = environment.baseURL + endpoint;
+    const url = this.getProductApiUrl('FilteredItems');
     return this.http.post<Array<any>>(url, params);
   }
 

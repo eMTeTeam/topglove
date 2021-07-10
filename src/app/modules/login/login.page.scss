@@ -1,12 +1,13 @@
 .login-card {
   padding: 20px;
-  width: 300px;
+  width: 400px;
   background-color: #f7f7f7;
-  margin: 0 auto 10px;
+  margin: auto;
   border-radius: 2px;
-  box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+  box-shadow: 0px 3px 8px 3px rgb(0 0 0 / 14%);
   overflow: hidden;
-  margin-top: 80px;
+  position: relative;
+  top: 15%;
   text-align: center;
 
   ion-input {
@@ -17,6 +18,13 @@
   form {
     margin-top: 20px !important;
   }
+}
+.login-card ion-input ion-icon {
+  border-right: 1px solid #16438b;
+  padding: 13px;
+  font-size: 20px;
+  color: #16438b;
+  margin-left: 5px;
 }
 
 .login-card input[type="text"] {
@@ -52,4 +60,29 @@
 
 .login-card a:hover {
   opacity: 1;
+}
+
+ion-item {
+  border: 1px solid #16438b !important;
+  border-radius: 5px;
+  --background: transparent;
+  height: 44px;
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  display: flex;
+
+  ion-icon {
+    border-right: 1px solid #16438b;
+    font-size: 20px;
+    color: #16438b;
+    height: 100%;
+    height: -moz-available;
+    height: -webkit-fill-available;
+    padding: 0 12px 0;
+    margin-left: -9px;
+  }
+
+  ion-select {
+    margin: auto;
+  }
 }

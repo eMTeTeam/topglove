@@ -5,8 +5,9 @@ import { Injectable } from '@angular/core';
 })
 export class UserService {
 
-  public _user: string = null;
-  public _isSuperUser: boolean = false;
+  private _user: string = null;
+  private _isSuperUser: boolean = false;
+  private _workStation: string = null;
 
   constructor() {
     this.load();
@@ -15,9 +16,18 @@ export class UserService {
   load = () => {
     if (this.isValid()) {
       const user = localStorage.getItem("userId");
-
       if (user) {
         this._user = user;
+      }
+
+      const iSuperUser = localStorage.getItem("isSuperUser");
+      if (iSuperUser) {
+        this._isSuperUser = iSuperUser === 'true';
+      }
+
+      const workStation = localStorage.getItem("workStation");
+      if (workStation) {
+        this._workStation = workStation;
       }
     }
   }
@@ -48,5 +58,14 @@ export class UserService {
   set IsSuperUser(flag: boolean) {
     localStorage.setItem("isSuperUser", flag + '');
     this._isSuperUser = flag;
+  }
+
+  get WorkStation(): string {
+    return this._workStation;
+  }
+
+  set WorkStation(workStation: string) {
+    localStorage.setItem("workStation", workStation);
+    this._workStation = workStation;
   }
 }
