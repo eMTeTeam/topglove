@@ -29,7 +29,7 @@ export class LoadingService {
                  //this.hide();
                  this.loadingController.dismiss()
                });
-        }, 1000);
+        }, 1500);
        
     }
 

@@ -18,6 +18,18 @@
 
         <ion-col>
           <ion-item>
+            <ion-label style="text-align: center;">User: {{userService.User}} </ion-label>
+          </ion-item>
+        </ion-col>
+
+        <ion-col>
+          <ion-item>
+            <ion-label style="text-align: center;">Workstation: {{userService.WorkStation}}</ion-label>
+          </ion-item>
+        </ion-col>
+
+        <ion-col>
+          <ion-item>
             <ion-label style="text-align: center;">Date: <ion-text color="danger">*</ion-text>
             </ion-label>
             <ion-datetime id="qualityDate" name="qualityDate" displayFormat="MM/DD/YY" required
@@ -28,13 +40,11 @@
 
         <ion-col>
           <ion-item>
-            <ion-label style="text-align: center;">User: {{userService.User}} </ion-label>
-          </ion-item>
-        </ion-col>
-
-        <ion-col>
-          <ion-item>
-            <ion-label style="text-align: center;">Workstation: {{userService.WorkStation}}</ion-label>
+            <ion-label style="text-align: center;">Shifts: <ion-text color="danger">*</ion-text>
+            </ion-label>
+            <ion-select interface="popover" placeholder="Select shift" [(ngModel)]="shift">
+              <ion-select-option value="{{s}}" *ngFor="let s of _shitfs">{{s}}</ion-select-option>
+            </ion-select>
           </ion-item>
         </ion-col>
 

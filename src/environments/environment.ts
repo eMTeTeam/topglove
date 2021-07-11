@@ -4,7 +4,8 @@
 
 export const environment = {
   production: false,
-  baseURL: 'https://emte-topglove.herokuapp.com/api/Quality/v1/'
+  //baseURL: 'https://emte-topglove.herokuapp.com/api'
+  baseURL: 'http://localhost:9192/api'
 };
 
 /*

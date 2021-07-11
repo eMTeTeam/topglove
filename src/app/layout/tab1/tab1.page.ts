@@ -1,10 +1,9 @@
 import { Component } from '@angular/core';
-import * as moment from 'moment';
 import { NotificationService } from '../../services/notification.service';
 import { LoadingService } from '../../services/loading.service';
 import { ApiService } from '../../services/api.service';
 import { UserService } from 'src/app/services/user.service';
-import { Factory, FiringOrRework, Size, TypeOfFormers, Defetcs }
+import { Factory, FiringOrRework, Size, TypeOfFormers, Defetcs, Shifts }
   from 'src/app/entities/topglove.domain.model';
 
 @Component({
@@ -20,12 +19,14 @@ export class Tab1Page {
   size: string = null;
   factory: string = null;
   firingOrReWork: string = null;
+  shift: string = null;
 
   _typeOfFormers: string[] = TypeOfFormers.data;
   _factory: string[] = Factory.data;
   _firingOrRework: string[] = FiringOrRework.data;
   _Size: string[] = Size.data;
   _defetcs: string[] = Defetcs.data;
+  _shitfs: string[] = Shifts.data;
 
   constructor(private toast: NotificationService,
     private loadingService: LoadingService,
@@ -42,16 +43,17 @@ export class Tab1Page {
       this.loadingService.show();
 
       const payload = {
-        "serialNumber": this.serialNo,
-        "user": this.userService.User,
-        "workStation": this.userService.WorkStation,
-        "typeOfFormer": this.formerType,
-        "factory": this.factory,
-        "firingOrRework": this.firingOrReWork,
-        "size": this.size,
-        "defectDetails": '',
-        "quality": "accept",
-        "createdDateTime": this.qualityDate
+        'serialNumber': this.serialNo,
+        'user': this.userService.User,
+        'workStation': this.userService.WorkStation,
+        'typeOfFormer': this.formerType,
+        'factory': this.factory,
+        'firingOrRework': this.firingOrReWork,
+        'size': this.size,
+        'defectDetails': '',
+        'quality': 'accept',
+        'createdDateTime': this.qualityDate,
+        'shift': this.shift
       };
 
       const message: string = `Serial no. ${this.serialNo} has been accepted!`;
@@ -67,16 +69,17 @@ export class Tab1Page {
       this.loadingService.show();
 
       const payload = {
-        "serialNumber": this.serialNo,
-        "user": this.userService.User,
-        "workStation": this.userService.WorkStation,
-        "typeOfFormer": this.formerType,
-        "factory": this.factory,
-        "firingOrRework": this.firingOrReWork,
-        "size": this.size,
-        "defectDetails": type,
-        "quality": "reject",
-        "createdDateTime": this.qualityDate
+        'serialNumber': this.serialNo,
+        'user': this.userService.User,
+        'workStation': this.userService.WorkStation,
+        'typeOfFormer': this.formerType,
+        'factory': this.factory,
+        'firingOrRework': this.firingOrReWork,
+        'size': this.size,
+        'defectDetails': type,
+        'quality': 'reject',
+        'createdDateTime': this.qualityDate,
+        'shift': this.shift
       };
 
       const message: string = `Serial no. ${this.serialNo} has been rejected with defect details ${type}!`;

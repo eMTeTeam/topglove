@@ -23,12 +23,6 @@
 
         <ion-col>
           <ion-item>
-            <ion-label style="text-align: center;">Date: {{item.createdDateTime | date:'shortDate' }}</ion-label>
-          </ion-item>
-        </ion-col>
-
-        <ion-col>
-          <ion-item>
             <ion-label style="text-align: center;">User: {{item.user}} </ion-label>
           </ion-item>
         </ion-col>
@@ -36,6 +30,22 @@
         <ion-col>
           <ion-item>
             <ion-label style="text-align: center;">Workstation: {{item.workStation}} </ion-label>
+          </ion-item>
+        </ion-col>
+
+        <ion-col>
+          <ion-item>
+            <ion-label style="text-align: center;">Date: {{item.createdDateTime | date:'shortDate' }}</ion-label>
+          </ion-item>
+        </ion-col>
+
+        <ion-col>
+          <ion-item>
+            <ion-label style="text-align: center;">Shifts: <ion-text color="danger">*</ion-text>
+            </ion-label>
+            <ion-select interface="popover" placeholder="Select shift" [(ngModel)]="item.shift">
+              <ion-select-option value="{{s}}" *ngFor="let s of _shitfs">{{s}}</ion-select-option>
+            </ion-select>
           </ion-item>
         </ion-col>
 

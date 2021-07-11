@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Defetcs, Factory, FiringOrRework, Size, TypeOfFormers } from 'src/app/entities/topglove.domain.model';
+import { Defetcs, Factory, FiringOrRework, Shifts, Size, TypeOfFormers } from 'src/app/entities/topglove.domain.model';
 import { TopGlovEntity } from 'src/app/entities/topglove.model';
 import { ApiService } from 'src/app/services/api.service';
 import { NavController } from '@ionic/angular';
@@ -18,6 +18,7 @@ export class EditEntityPage implements OnInit {
   _firingOrRework: string[] = FiringOrRework.data;
   _Size: string[] = Size.data;
   _defetcs: string[] = Defetcs.data;
+  _shitfs: string[] = Shifts.data;
 
   constructor(private apiService: ApiService,
     private navCtrl: NavController) {
@@ -36,6 +37,7 @@ export class EditEntityPage implements OnInit {
   }
 
   accept = () => {
+    this.item['defectDetails'] = '';
     this.item['quality'] = 'accept';
     this.save();
   }

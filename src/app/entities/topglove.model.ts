@@ -9,7 +9,8 @@ export interface TopGlovEntity {
     firingOrRework: string | null | undefined,
     defectDetails: string | null | undefined,
     quality: string,
-    workStation: string
+    workStation: string,
+    shift: string
 }
 
 export interface User {

@@ -2,6 +2,10 @@ export class WorkStations {
     static data: Array<string> = ['ayu', 'table2', 'table3', 'table4', 'table5', 'table6'];
 }
 
+export class Shifts {
+    static data: Array<string> = ['Day', 'Noon', 'Night'];
+}
+
 export class TypeOfFormers {
     static data: Array<string> = ['UGFT', 'UGPT', 'GPT', 'GSFTT', 'MGPT', 'LGPT', 'MGFT', 'LGFT', 'STD', 'STC'];
 }
