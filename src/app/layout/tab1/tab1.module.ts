@@ -7,7 +7,7 @@ import { Tab1Page } from './tab1.page';
 import { Tab1PageRoutingModule } from './tab1-routing.module';
 import { AvatarModule } from 'ngx-avatar';
 
-const avatarColors = ["#16438b"];
+const avatarColors = ['#16438b'];
 
 @NgModule({
   imports: [

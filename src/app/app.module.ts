@@ -25,7 +25,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
     ServiceWorkerModule.register('./ngsw-worker.js', {
       enabled: environment.production,
-      registrationStrategy: "registerImmediately"
+      registrationStrategy: 'registerImmediately'
     }),
 
     BrowserAnimationsModule,

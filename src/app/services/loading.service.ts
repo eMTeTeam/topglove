@@ -6,36 +6,30 @@ import { LoadingController } from '@ionic/angular';
 })
 export class LoadingService {
 
-    loading: HTMLIonLoadingElement;
+    loading: HTMLIonLoadingElement | null = null;
     interval: any;
 
     constructor(public loadingController: LoadingController) { }
 
-    show =  () => {
-        this.loadingController.create({
-            message: ''
-          }).then((res) => {
-            res.present();
-          });
+    show = async () => {
+        if (this.loading) return;
+
+        this.loading = await this.loadingController.create();
+        await this.loading.present();
     }
 
+    hide = () => {
+        setInterval(() => {
+            this.dismiss();
+        }, 1000);
 
-    hide= ()=>{
-        setTimeout(() => {
-            this.loadingController.dismiss().then((res) => {
-                // console.log('Loading dismissed!', res);
-               }).catch((error) => {
-                 console.log('error', error);
-                 //this.hide();
-                 this.loadingController.dismiss()
-               });
-        }, 1500);
-       
+        this.dismiss();
     }
 
-    private dismiss = () => {
+    dismiss = () => {
         if (this.loading) {
             this.loading.dismiss();
+            this.loading = null;
             this.clear();
         }
     }

@@ -7,7 +7,7 @@ import { AvatarModule } from 'ngx-avatar';
 
 import { Tab2PageRoutingModule } from './tab2-routing.module';
 
-const avatarColors = ["#FFB6C1", "#2c3e50", "#95a5a6", "#f39c12", "#1abc9c"];
+const avatarColors = ['#FFB6C1', '#2c3e50', '#95a5a6', '#f39c12', '#1abc9c'];
 
 @NgModule({
   imports: [

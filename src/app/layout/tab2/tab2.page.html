@@ -1,5 +1,5 @@
 <ion-content class="ion-padding-start ion-padding-end">
-    <ion-refresher slot="fixed" (ionRefresh)="loadDate($event)">
+    <ion-refresher slot="fixed" (ionRefresh)="loadData($event)">
         <ion-refresher-content>
         </ion-refresher-content>
     </ion-refresher>
@@ -37,7 +37,9 @@
         </ion-col>
     </ion-row>
 
-    <ion-button class="ion-padding-start" (click)="loadDate()">Filter</ion-button>
+    <ion-button class="ion-padding-start" (click)="loadData()">Filter</ion-button>
+
+    <ion-button class="ion-padding-start" fill="outline" (click)="reset()">Reset</ion-button>
 
     <ion-list class="main-list" lines="full">
 
@@ -49,11 +51,14 @@
                 <ion-col size="1">
                     <ion-label>S.No</ion-label>
                 </ion-col>
-                <ion-col size="2">
+                <ion-col size="1">
                     <ion-label>Created</ion-label>
                 </ion-col>
                 <ion-col size="1">
                     <ion-label>User</ion-label>
+                </ion-col>
+                <ion-col size="1">
+                    <ion-label>WorkStation</ion-label>
                 </ion-col>
                 <ion-col size="1">
                     <ion-label>Former</ion-label>
@@ -78,11 +83,14 @@
                 <ion-col size="1">
                     <ion-label>{{item.serialNumber}}</ion-label>
                 </ion-col>
-                <ion-col size="2">
+                <ion-col size="1">
                     <ion-label>{{formatDateTime(item.createdDateTime)}}</ion-label>
                 </ion-col>
                 <ion-col size="1">
                     <ion-label>{{item.user}}</ion-label>
+                </ion-col>
+                <ion-col size="1">
+                    <ion-label>{{item.workStation}}</ion-label>
                 </ion-col>
                 <ion-col size="1">
                     <ion-label>{{item.typeOfFormer}}</ion-label>
@@ -97,7 +105,7 @@
                     <ion-label>{{item.firingOrRework}}</ion-label>
                 </ion-col>
                 <ion-col size="2">
-                    <ion-chip color="warning" class="chip">
+                    <ion-chip color="{{getColor(item)}}" class="chip">
                         <ion-label>{{item.defectDetails}}</ion-label>
                     </ion-chip>
                 </ion-col>

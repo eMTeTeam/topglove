@@ -62,12 +62,12 @@ export class LoginPage implements OnInit {
             this.router.navigate(['/tabs'], { replaceUrl: true });
           }
         } else {
-          this.toast.error("Please enter valid username");
+          this.toast.error('Please enter valid username');
         }
       }, (error: any) => {
         console.log(error);
         this.loadingService.hide();
-        this.toast.error("Unable to validate user. Please try agian after sometime.");
+        this.toast.error('Unable to validate user. Please try agian after sometime.');
       });
     }
   }

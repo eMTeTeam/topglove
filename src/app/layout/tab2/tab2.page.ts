@@ -35,33 +35,37 @@ export class Tab2Page {
   }
 
   ionViewWillEnter() {
-    this.loadDate();
+    this.loadData();
   }
 
   formatDateTime = (date: Date): string => {
     return moment(date).format('DD-MM-YYYY');
   }
-  from: string = moment().format("YYYY-MM-DD");
-  to: string = moment().format("YYYY-MM-DD");
-  loadDate = (event: any = null) => {
+
+  from: string = moment().format('YYYY-MM-DD');
+  to: string = moment().format('YYYY-MM-DD');
+
+  loadData = (event: any = null) => {
 
     if (event) {
       event.target.complete();
     }
 
     const payload = {
-      "fromDate": new Date(this.from),
-      "toDate": new Date(this.to),
+      'fromDate': new Date(this.from),
+      'toDate': new Date(this.to),
+      'factory': this.factory,
+      'workStation': this.workStation
     }
 
     if (!this.userService.IsSuperUser) {
-      payload["User"] = this.userService.User;
+      payload['User'] = this.userService.User;
     }
 
     this.loadingService.show();
     this.apiService.loadAllEntity(payload).subscribe((result: Array<any>) => {
       // this.list=result;
-      this.list = this.json2array(this.groupBy(result, "user"));
+      this.list = this.json2array(this.groupBy(result, 'user'));
       this.loadingService.hide();
     }, (error: any) => {
       this.loadingService.hide();
@@ -91,5 +95,22 @@ export class Tab2Page {
     });
     return result;
   };
+
+  reset = () => {
+    this.workStation = null;
+    this.factory = null;
+    this.from = moment().format('YYYY-MM-DD');
+    this.to = moment().format('YYYY-MM-DD');
+
+    this.loadData();
+  }
+
+  getColor = (item: TopGlovEntity): string => {
+    if (item.defectDetails) {
+      return 'warning';
+    }
+
+    return 'bg-none';
+  }
 
 }

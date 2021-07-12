@@ -30,9 +30,9 @@ export class ApiService {
   }
 
   logout = () => {
-    localStorage.removeItem("userId");
-    localStorage.removeItem("isSuperUser");
-    localStorage.removeItem("workStation");
+    localStorage.removeItem('userId');
+    localStorage.removeItem('isSuperUser');
+    localStorage.removeItem('workStation');
   }
 
   insertEntity = (params: any): Observable<any> => {

@@ -15,17 +15,17 @@ export class UserService {
 
   load = () => {
     if (this.isValid()) {
-      const user = localStorage.getItem("userId");
+      const user = localStorage.getItem('userId');
       if (user) {
         this._user = user;
       }
 
-      const iSuperUser = localStorage.getItem("isSuperUser");
+      const iSuperUser = localStorage.getItem('isSuperUser');
       if (iSuperUser) {
         this._isSuperUser = iSuperUser === 'true';
       }
 
-      const workStation = localStorage.getItem("workStation");
+      const workStation = localStorage.getItem('workStation');
       if (workStation) {
         this._workStation = workStation;
       }
@@ -33,7 +33,7 @@ export class UserService {
   }
 
   isValid = () => {
-    const user = localStorage.getItem("userId");
+    const user = localStorage.getItem('userId');
 
     if (!user) {
       return false;
@@ -47,7 +47,7 @@ export class UserService {
   }
 
   set User(user: string) {
-    localStorage.setItem("userId", user);
+    localStorage.setItem('userId', user);
     this._user = user;
   }
 
@@ -56,7 +56,7 @@ export class UserService {
   }
 
   set IsSuperUser(flag: boolean) {
-    localStorage.setItem("isSuperUser", flag + '');
+    localStorage.setItem('isSuperUser', flag + '');
     this._isSuperUser = flag;
   }
 
@@ -65,7 +65,7 @@ export class UserService {
   }
 
   set WorkStation(workStation: string) {
-    localStorage.setItem("workStation", workStation);
+    localStorage.setItem('workStation', workStation);
     this._workStation = workStation;
   }
 }

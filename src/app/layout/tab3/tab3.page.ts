@@ -25,8 +25,8 @@ export class Tab3Page {
 
   user: string = this.userService.User;
 
-  from: string = moment().format("YYYY-MM-DD");
-  to: string = moment().format("YYYY-MM-DD");
+  from: string = moment().format('YYYY-MM-DD');
+  to: string = moment().format('YYYY-MM-DD');
 
   accepted: number = 0;
   rejected: number = 0;
@@ -98,13 +98,14 @@ export class Tab3Page {
     const t: Date = moment(this.to).toDate();
 
     const payload = {
-      "fromDate": new Date(this.from),
-      "toDate": new Date(this.to),
-      //  "factory": this.factory
+      'fromDate': new Date(this.from),
+      'toDate': new Date(this.to),
+      'factory': this.factory,
+      'workStation': this.workStation
     }
 
     if (!this.userService.IsSuperUser) {
-      payload["User"] = this.userService.User;
+      payload['User'] = this.userService.User;
     }
 
     this.loadingService.show();
@@ -143,7 +144,7 @@ export class Tab3Page {
     this.pieChartData = data;
 
     this.colors = [{
-      backgroundColor: ["#0074D9", "#FF4136", "#2ECC40", "#FF851B", "#7FDBFF", "#B10DC9", "#FFDC00", "#001f3f", "#39CCCC", "#01FF70", "#85144b"]
+      backgroundColor: ['#0074D9', '#FF4136', '#2ECC40', '#FF851B', '#7FDBFF', '#B10DC9', '#FFDC00', '#001f3f', '#39CCCC', '#01FF70', '#85144b']
     }];
   }
 
@@ -179,10 +180,10 @@ export class Tab3Page {
     var rejectedArray = [];
     uniqueUsers.forEach((value) => {
       var countDataAccepted = result.filter(data => {
-        return data.quality == "accept" && data.user == value;
+        return data.quality == 'accept' && data.user == value;
       });
       var countDataRejected = result.filter(data => {
-        return data.quality == "reject" && data.user == value;
+        return data.quality == 'reject' && data.user == value;
       });
       this.stackedBarChartLabels.push(value);
       acceptedArray.push(countDataAccepted.length);
@@ -194,6 +195,15 @@ export class Tab3Page {
       { data: acceptedArray, label: 'Accepted', backgroundColor: '#2dd36f' },
       { data: rejectedArray, label: 'Rejected', backgroundColor: '#eb445a' }
     ];
+  }
+
+  reset = () => {
+    this.workStation = null;
+    this.factory = null;
+    this.from = moment().format('YYYY-MM-DD');
+    this.to = moment().format('YYYY-MM-DD');
+
+    this.loadData();
   }
 
 }
