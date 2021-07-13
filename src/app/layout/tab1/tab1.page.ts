@@ -13,6 +13,8 @@ import { Factory, FiringOrRework, Size, TypeOfFormers, Defetcs, Shifts }
 })
 export class Tab1Page {
 
+  isSaving: boolean = false;
+
   serialNo: number = null;
   formerType: string = null;
   qualityDate: Date = null;
@@ -96,7 +98,15 @@ export class Tab1Page {
   }
 
   save = (payload: any, message: string) => {
+    if (this.isSaving) {
+      this.toast.error('Please wait saving is in progress!');
+      return;
+    }
+
+    this.isSaving = true;
+
     this.apiService.insertEntity(payload).subscribe((result: any) => {
+      this.isSaving = false;
       this.loadingService.hide();
 
       if (result) {
@@ -106,8 +116,8 @@ export class Tab1Page {
         // todo alert
       }
     }, (error: any) => {
+      this.isSaving = false;
       this.loadingService.hide();
-
       // todo alert
     });
   }

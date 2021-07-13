@@ -57,9 +57,8 @@ export class ApiService {
   }
 
   getExcelReport = (params: any): Observable<HttpResponse<ArrayBuffer>> => {
-    const endpoint = 'healthmeasures/v1/generateReport';
-    const url = environment.baseURL + endpoint;
-    return this.http.put(url, params, {
+    const url = this.getProductApiUrl('GenerateExcel');
+    return this.http.post(url, params, {
       headers: new HttpHeaders({
         'Content-Type': 'application/octet-stream',
         'Accept': 'application/octet-stream',

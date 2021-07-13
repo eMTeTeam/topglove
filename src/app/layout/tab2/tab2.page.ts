@@ -7,6 +7,7 @@ import { LoadingService } from '../../services/loading.service';
 import { UserService } from 'src/app/services/user.service';
 import { TopGlovEntity } from 'src/app/entities/topglove.model';
 import * as moment from 'moment';
+import { saveAs } from 'file-saver';
 import { Factory, WorkStations } from 'src/app/entities/topglove.domain.model';
 
 @Component({
@@ -111,6 +112,32 @@ export class Tab2Page {
     }
 
     return 'bg-none';
+  }
+
+  getExcel = () => {
+
+    const payload = {
+      'fromDate': new Date(this.from),
+      'toDate': new Date(this.to),
+      'factory': this.factory,
+      'workStation': this.workStation
+    }
+
+    if (!this.userService.IsSuperUser) {
+      payload['User'] = this.userService.User;
+    }
+
+    this.loadingService.show();
+
+    this.apiService.getExcelReport(payload).subscribe((response) => {
+      const file = new Blob([response.body], { type: 'application/xlsx' });
+      const fileName = `${moment().format('YYYY-MM-DDTHH:mm')}_TopGlove_Tracker.xlsx`;
+      this.loadingService.hide();
+      saveAs(file, fileName);
+    }, (error) => {
+      this.toast.error("Please try again later.");
+      this.loadingService.hide();
+    });
   }
 
 }
