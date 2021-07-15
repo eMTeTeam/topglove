@@ -56,8 +56,25 @@ export class ApiService {
     return this.http.post<Array<any>>(url, params);
   }
 
+  loadAllPREntity = (params: any): Observable<Array<any>> => {
+    const url = this.getProductApiUrl('GetPassingRate');
+    return this.http.post<Array<any>>(url, params);
+  }
+
   getExcelReport = (params: any): Observable<HttpResponse<ArrayBuffer>> => {
     const url = this.getProductApiUrl('GenerateExcel');
+    return this.http.post(url, params, {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/octet-stream',
+        'Accept': 'application/octet-stream',
+      }),
+      observe: 'response',
+      responseType: 'arraybuffer'
+    });
+  }
+
+  getPassingRateExcelReport = (params: any): Observable<HttpResponse<ArrayBuffer>> => {
+    const url = this.getProductApiUrl('GetPassingRateExcel');
     return this.http.post(url, params, {
       headers: new HttpHeaders({
         'Content-Type': 'application/octet-stream',

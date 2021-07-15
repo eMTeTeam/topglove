@@ -19,8 +19,6 @@ export class LoadingService {
     }
 
     hide = () => {
-        this.dismiss();
-
         setInterval(() => {
             this.dismiss();
         }, 1000);

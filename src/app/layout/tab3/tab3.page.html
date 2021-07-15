@@ -41,7 +41,7 @@
     </ion-row>
 
     <ion-button (click)="loadData()">Filter</ion-button>
-    
+
     <ion-button class="ion-padding-start" fill="outline" (click)="reset()">Reset</ion-button>
 
     <ion-row class="main-row">
@@ -72,19 +72,79 @@
       </ion-col>
     </ion-row>
 
-
     <ion-row class="main-row">
+      <ion-col size="12" class="chartHeader passing">
+        <ion-text class="center">Passing Rate</ion-text>
+        <ion-text class="right click" (click)="getExcel()">Generate Excel</ion-text>
+      </ion-col>
+      <ion-col size="12">
+        <ion-row class="gridHeader">
+          <ion-col size="2">
+            <ion-label>Date</ion-label>
+          </ion-col>
+          <ion-col size="1">
+            <ion-label>Factory</ion-label>
+          </ion-col>
+          <ion-col size="2">
+            <ion-label>Type Of Former</ion-label>
+          </ion-col>
+          <ion-col size="2">
+            <ion-label>Accept Count</ion-label>
+          </ion-col>
+          <ion-col size="2">
+            <ion-label>Reject Count</ion-label>
+          </ion-col>
+          <ion-col size="1">
+            <ion-label>Total Count</ion-label>
+          </ion-col>
+          <ion-col size="1">
+            <ion-label>Pass %</ion-label>
+          </ion-col>
+          <ion-col size="1">
+            <ion-label>Remark</ion-label>
+          </ion-col>
+        </ion-row>
+        <ion-row *ngFor="let item of PRList" class="row">
+          <ion-col size="2">
+            <ion-label>{{formatDateTime(item.createdDateTime)}}</ion-label>
+          </ion-col>
+          <ion-col size="1">
+            <ion-label>{{item.factory}}</ion-label>
+          </ion-col>
+          <ion-col size="2">
+            <ion-label>{{item.typeOfFormer}}</ion-label>
+          </ion-col>
+          <ion-col size="2">
+            <ion-label>{{item.acceptCount}}</ion-label>
+          </ion-col>
+          <ion-col size="2">
+            <ion-label>{{item.rejectCount}}</ion-label>
+          </ion-col>
+          <ion-col size="1">
+            <ion-label>{{item.totalCount}}</ion-label>
+          </ion-col>
+          <ion-col size="1">
+            <ion-label>{{item.passingRate}}</ion-label>
+          </ion-col>
+          <ion-col size="1">
+            <ion-label>{{item.remark}}</ion-label>
+          </ion-col>
+        </ion-row>
+      </ion-col>
+
       <ion-col size="12" class="chartHeader">Defects</ion-col>
       <ion-col size="12">
         <canvas baseChart [data]="pieChartData" [labels]="pieChartLabels" [chartType]="pieChartType"
           [colors]="colors"></canvas>
       </ion-col>
+
       <ion-col size="12" class="chartHeader">Factory Defects</ion-col>
       <ion-col size="12" class="chart-bar">
         <canvas baseChart [datasets]="barChartData" [labels]="barChartLabels" [options]="barChartOptions"
           [legend]="barChartLegend" [chartType]="barChartType">
         </canvas>
       </ion-col>
+
       <ion-col size="12" class="chartHeader">Accepted/Rejected</ion-col>
       <ion-col size="12">
         <canvas baseChart [datasets]="stackedarChartData" [labels]="stackedBarChartLabels"

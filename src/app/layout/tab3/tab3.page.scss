@@ -17,3 +17,38 @@
   text-transform: uppercase;
   margin-top: 20px;
 }
+
+.row {
+  padding: 10px 0;
+  border-bottom: 1px #b0b0b0 solid;
+}
+
+.gridHeader {
+  background: #222428;
+  font-size: 13px;
+  color: #fff;
+  height: 50px;
+
+  ion-col {
+    top: 15%;
+  }
+}
+
+.passing {
+  display: flex;
+  justify-content: flex-start; /* adjustment */
+  position: relative; /* new */
+
+  .center {
+    flex: 0 1 auto;
+    position: absolute; /* new */
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  .right {
+    flex: 0 1 auto;
+    margin-left: auto;
+    color: #16438b;
+  }
+}

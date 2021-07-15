@@ -6,7 +6,7 @@ import { LoadingService } from '../../services/loading.service';
 import { ApiService } from '../../services/api.service';
 import { UserService } from 'src/app/services/user.service';
 import { Factory, WorkStations } from 'src/app/entities/topglove.domain.model';
-
+import { saveAs } from 'file-saver';
 import { ChartType, ChartOptions, ChartDataSets } from 'chart.js';
 import { Color, Label } from 'ng2-charts';
 
@@ -27,6 +27,8 @@ export class Tab3Page {
 
   from: string = moment().format('YYYY-MM-DD');
   to: string = moment().format('YYYY-MM-DD');
+
+  PRList: Array<any> = [];
 
   accepted: number = 0;
   rejected: number = 0;
@@ -85,17 +87,17 @@ export class Tab3Page {
     private apiService: ApiService,
     public userService: UserService) {
   }
+
   ionViewWillEnter() {
     this.loadData();
   }
+
   loadData = (event: any = null) => {
+    this.loadPRList();
 
     if (event) {
       event.target.complete();
     }
-
-    const f: Date = moment(this.from).toDate();
-    const t: Date = moment(this.to).toDate();
 
     const payload = {
       'fromDate': new Date(this.from),
@@ -206,4 +208,51 @@ export class Tab3Page {
     this.loadData();
   }
 
+  loadPRList = () => {
+    const payload = {
+      'fromDate': new Date(this.from),
+      'toDate': new Date(this.to),
+      'factory': this.factory,
+      'workStation': this.workStation
+    }
+
+    if (!this.userService.IsSuperUser) {
+      payload['User'] = this.userService.User;
+    }
+
+    this.apiService.loadAllPREntity(payload).subscribe((result: Array<any>) => {
+      this.PRList = result;
+    }, (error: any) => {
+    });
+
+  }
+
+  getExcel = () => {
+    const payload = {
+      'fromDate': new Date(this.from),
+      'toDate': new Date(this.to),
+      'factory': this.factory,
+      'workStation': this.workStation
+    }
+
+    if (!this.userService.IsSuperUser) {
+      payload['User'] = this.userService.User;
+    }
+
+    this.loadingService.show();
+
+    this.apiService.getPassingRateExcelReport(payload).subscribe((response) => {
+      const file = new Blob([response.body], { type: 'application/xlsx' });
+      const fileName = `${moment().format('YYYY-MM-DDTHH:mm')}_TopGlove_PR_Tracker.xlsx`;
+      this.loadingService.hide();
+      saveAs(file, fileName);
+    }, (error) => {
+      this.toast.error("Please try again later.");
+      this.loadingService.hide();
+    });
+  }
+
+  formatDateTime = (date: Date): string => {
+    return moment(date).format('DD-MM-YYYY');
+  }
 }
