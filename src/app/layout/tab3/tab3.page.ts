@@ -9,6 +9,7 @@ import { Factory, WorkStations } from 'src/app/entities/topglove.domain.model';
 import { saveAs } from 'file-saver';
 import { ChartType, ChartOptions, ChartDataSets } from 'chart.js';
 import { Color, Label } from 'ng2-charts';
+import { Size, TypeOfFormers } from '../../entities/topglove.domain.model';
 
 @Component({
   selector: 'app-tab3',
@@ -22,6 +23,12 @@ export class Tab3Page {
 
   _workStations: string[] = WorkStations.data;
   public workStation: string = null;
+
+  _size: string[] = Size.data;
+  public size: string = null;
+
+  _type: string[] = TypeOfFormers.data
+  public formerType: string = null;
 
   user: string = this.userService.User;
 
@@ -103,7 +110,9 @@ export class Tab3Page {
       'fromDate': new Date(this.from),
       'toDate': new Date(this.to),
       'factory': this.factory,
-      'workStation': this.workStation
+      'workStation': this.workStation,
+      'size': this.size,
+      'typeOfFormer': this.formerType
     }
 
     if (!this.userService.IsSuperUser) {
@@ -202,6 +211,8 @@ export class Tab3Page {
   reset = () => {
     this.workStation = null;
     this.factory = null;
+    this.formerType = null;
+    this.size = null;
     this.from = moment().format('YYYY-MM-DD');
     this.to = moment().format('YYYY-MM-DD');
 
@@ -213,7 +224,9 @@ export class Tab3Page {
       'fromDate': new Date(this.from),
       'toDate': new Date(this.to),
       'factory': this.factory,
-      'workStation': this.workStation
+      'workStation': this.workStation,
+      'size': this.size,
+      'typeOfFormer': this.formerType
     }
 
     if (!this.userService.IsSuperUser) {
@@ -232,7 +245,9 @@ export class Tab3Page {
       'fromDate': new Date(this.from),
       'toDate': new Date(this.to),
       'factory': this.factory,
-      'workStation': this.workStation
+      'workStation': this.workStation,
+      'size': this.size,
+      'typeOfFormer': this.formerType
     }
 
     if (!this.userService.IsSuperUser) {

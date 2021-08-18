@@ -10,11 +10,14 @@ export interface TopGlovEntity {
     defectDetails: string | null | undefined,
     quality: string,
     workStation: string,
-    shift: string
+    shift: string,
+    batchNumber: string,
+    notes: string
 }
 
 export interface User {
     userId: string,
     name: string,
-    isSuperUser: boolean
+    isSuperUser: boolean,
+    isActive:boolean,
 }

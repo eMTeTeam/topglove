@@ -6,8 +6,8 @@ export const environment = {
   production: false,
  // baseURL: 'https://emte-topglove.herokuapp.com/api'
   //baseURL: 'http://localhost:9192/api'
-  //baseURL: 'http://localhost:8081/api'
-  baseURL:'http://10.220.113.73:8081/api'
+  baseURL: 'https://localhost:44364/api'  
+  // baseURL:'http://10.220.113.73:8081/api'
 };
 
 /*

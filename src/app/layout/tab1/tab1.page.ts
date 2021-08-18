@@ -22,6 +22,8 @@ export class Tab1Page {
   factory: string = null;
   firingOrReWork: string = null;
   shift: string = null;
+  batchNumber: string = null;
+  notes: string = null;
 
   _typeOfFormers: string[] = TypeOfFormers.data;
   _factory: string[] = Factory.data;
@@ -55,7 +57,9 @@ export class Tab1Page {
         'defectDetails': '',
         'quality': 'accept',
         'createdDateTime': this.qualityDate,
-        'shift': this.shift
+        'shift': this.shift,
+        'batchNumber': this.batchNumber,
+        'notes': this.notes
       };
 
       const message: string = `Serial no. ${this.serialNo} has been accepted!`;
@@ -81,7 +85,9 @@ export class Tab1Page {
         'defectDetails': type,
         'quality': 'reject',
         'createdDateTime': this.qualityDate,
-        'shift': this.shift
+        'shift': this.shift,
+        'batchNumber': this.batchNumber,
+        'notes': this.notes
       };
 
       const message: string = `Serial no. ${this.serialNo} has been rejected with defect details ${type}!`;

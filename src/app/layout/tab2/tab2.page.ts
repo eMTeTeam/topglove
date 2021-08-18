@@ -9,6 +9,7 @@ import { TopGlovEntity } from 'src/app/entities/topglove.model';
 import * as moment from 'moment';
 import { saveAs } from 'file-saver';
 import { Factory, WorkStations } from 'src/app/entities/topglove.domain.model';
+import { Size, TypeOfFormers } from '../../entities/topglove.domain.model';
 
 @Component({
   selector: 'app-tab2',
@@ -22,6 +23,12 @@ export class Tab2Page {
 
   _workStations: string[] = WorkStations.data;
   public workStation: string = null;
+
+  _size: string[] = Size.data;
+  public size: string = null;
+
+  _type: string[] = TypeOfFormers.data
+  public formerType: string = null;
 
   user: string = this.userService.User;
 
@@ -56,7 +63,9 @@ export class Tab2Page {
       'fromDate': new Date(this.from),
       'toDate': new Date(this.to),
       'factory': this.factory,
-      'workStation': this.workStation
+      'workStation': this.workStation,
+      'size': this.size,
+      'typeOfFormer': this.formerType
     }
 
     if (!this.userService.IsSuperUser) {
@@ -100,6 +109,8 @@ export class Tab2Page {
   reset = () => {
     this.workStation = null;
     this.factory = null;
+    this.formerType = null;
+    this.size = null;
     this.from = moment().format('YYYY-MM-DD');
     this.to = moment().format('YYYY-MM-DD');
 
@@ -120,7 +131,10 @@ export class Tab2Page {
       'fromDate': new Date(this.from),
       'toDate': new Date(this.to),
       'factory': this.factory,
-      'workStation': this.workStation
+      'workStation': this.workStation,
+      'size': this.size,
+      'typeOfFormer': this.formerType
+
     }
 
     if (!this.userService.IsSuperUser) {
