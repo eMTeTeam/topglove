@@ -34,6 +34,9 @@ export class Tab2Page {
 
   list: Array<TopGlovEntity> = [];
 
+  public filterByUser: string = null;
+  public batchNumber: string = null;
+
   constructor(public modalController: ModalController,
     private router: Router,
     private apiService: ApiService,
@@ -65,7 +68,9 @@ export class Tab2Page {
       'factory': this.factory,
       'workStation': this.workStation,
       'size': this.size,
-      'typeOfFormer': this.formerType
+      'typeOfFormer': this.formerType,
+      'batchNumber': this.batchNumber,
+      'filterByUser': this.filterByUser
     }
 
     if (!this.userService.IsSuperUser) {
@@ -113,6 +118,8 @@ export class Tab2Page {
     this.size = null;
     this.from = moment().format('YYYY-MM-DD');
     this.to = moment().format('YYYY-MM-DD');
+    this.filterByUser = null;
+    this.batchNumber = null;
 
     this.loadData();
   }
@@ -133,8 +140,9 @@ export class Tab2Page {
       'factory': this.factory,
       'workStation': this.workStation,
       'size': this.size,
-      'typeOfFormer': this.formerType
-
+      'typeOfFormer': this.formerType,
+      'batchNumber': this.batchNumber,
+      'filterByUser': this.filterByUser
     }
 
     if (!this.userService.IsSuperUser) {

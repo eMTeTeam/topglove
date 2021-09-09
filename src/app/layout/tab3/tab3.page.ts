@@ -34,6 +34,8 @@ export class Tab3Page {
 
   from: string = moment().format('YYYY-MM-DD');
   to: string = moment().format('YYYY-MM-DD');
+  public filterByUser: string = null;
+  public batchNumber: string = null;
 
   PRList: Array<any> = [];
 
@@ -112,7 +114,9 @@ export class Tab3Page {
       'factory': this.factory,
       'workStation': this.workStation,
       'size': this.size,
-      'typeOfFormer': this.formerType
+      'typeOfFormer': this.formerType,
+      'batchNumber': this.batchNumber,
+      'filterByUser': this.filterByUser
     }
 
     if (!this.userService.IsSuperUser) {
@@ -215,6 +219,8 @@ export class Tab3Page {
     this.size = null;
     this.from = moment().format('YYYY-MM-DD');
     this.to = moment().format('YYYY-MM-DD');
+    this.filterByUser = null;
+    this.batchNumber = null;
 
     this.loadData();
   }
@@ -226,7 +232,9 @@ export class Tab3Page {
       'factory': this.factory,
       'workStation': this.workStation,
       'size': this.size,
-      'typeOfFormer': this.formerType
+      'typeOfFormer': this.formerType,
+      'batchNumber': this.batchNumber,
+      'filterByUser': this.filterByUser
     }
 
     if (!this.userService.IsSuperUser) {
@@ -247,7 +255,9 @@ export class Tab3Page {
       'factory': this.factory,
       'workStation': this.workStation,
       'size': this.size,
-      'typeOfFormer': this.formerType
+      'typeOfFormer': this.formerType,
+      'batchNumber': this.batchNumber,
+      'filterByUser': this.filterByUser
     }
 
     if (!this.userService.IsSuperUser) {

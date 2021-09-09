@@ -1,5 +1,5 @@
 export class WorkStations {
-    static data: Array<string> = ['ayu', 'table2', 'table3', 'table4', 'table5', 'table6'];
+    static data: Array<string> = ['table1', 'table2', 'table3', 'table4', 'table5', 'table6'];
 }
 
 export class Shifts {
